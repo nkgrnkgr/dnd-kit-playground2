@@ -15,11 +15,12 @@ export const SideBar: React.FC = () => {
       >
         {itemIds.map((itemId) => (
           <Box
+            key={itemId}
             sx={{
               m: "12px",
             }}
           >
-            <Item key={itemId} itemId={itemId} />
+            <Item itemId={itemId} />
           </Box>
         ))}
       </Box>
