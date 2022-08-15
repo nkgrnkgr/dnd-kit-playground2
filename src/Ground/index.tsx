@@ -12,17 +12,17 @@ export const GROUND_LINE_ID = "ground-line-id";
 
 export const Ground: React.FC<Props> = () => {
   return (
-    <Droppable droppableId={GROUND_DROPPABLE_ID}>
-      <Box
-        sx={{
-          bgColor: "gray.100",
-          p: "12px",
-          h: "100vh",
-          minWidth: "900px",
-        }}
-      >
+    <Box
+      sx={{
+        bgColor: "gray.100",
+        p: "12px",
+        h: "100vh",
+        minWidth: "900px",
+      }}
+    >
+      <Droppable droppableId={GROUND_DROPPABLE_ID}>
         <Line lineId={GROUND_LINE_ID} />
-      </Box>
-    </Droppable>
+      </Droppable>
+    </Box>
   );
 };

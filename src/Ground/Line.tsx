@@ -1,4 +1,4 @@
-import { Flex } from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
 import { useDroppable } from "@dnd-kit/core";
 import { useRecoilState } from "recoil";
 import { GROUND_DROPPABLE_ID } from ".";
@@ -41,6 +41,8 @@ export const Line: React.FC<Props> = ({ lineId }) => {
     <Flex
       sx={{
         mt: "12px",
+        width: "100%",
+        height: "56px",
       }}
       gap={2}
     >
