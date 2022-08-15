@@ -1,7 +1,7 @@
 import { Box } from "@chakra-ui/react";
 import { useState } from "react";
 import { Card } from "../ui/Card";
-import { SidebarItem } from "./Item";
+import { SidebarItem } from "./SidebarItem";
 
 export const SideBar: React.FC = () => {
   const [itemIds] = useState<number[]>([1, 2, 3, 4, 5]);
