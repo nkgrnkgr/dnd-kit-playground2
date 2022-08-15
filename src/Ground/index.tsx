@@ -8,6 +8,8 @@ type Props = {
 
 export const GROUND_DROPPABLE_ID = "ground-droppable";
 
+export const GROUND_LINE_ID = "ground-line-id";
+
 export const Ground: React.FC<Props> = () => {
   return (
     <Droppable droppableId={GROUND_DROPPABLE_ID}>
@@ -19,7 +21,7 @@ export const Ground: React.FC<Props> = () => {
           minWidth: "900px",
         }}
       >
-        <Line />
+        <Line lineId={GROUND_LINE_ID} />
       </Box>
     </Droppable>
   );

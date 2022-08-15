@@ -4,7 +4,7 @@ import { Card } from "../ui/Card";
 import { SidebarItem } from "./SidebarItem";
 
 export const SideBar: React.FC = () => {
-  const [itemIds] = useState<number[]>([1, 2, 3, 4, 5]);
+  const [itemIds] = useState<string[]>(["A", "B", "C"]);
 
   return (
     <Card>

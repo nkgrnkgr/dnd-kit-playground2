@@ -2,13 +2,13 @@ import { Text } from "@chakra-ui/react";
 import { Item } from "../ui/Item";
 
 type Props = {
-  itemId: number;
+  itemId: string;
 };
 
 export const LineItem: React.FC<Props> = ({ itemId }) => {
   return (
-    <Item bgColor="teal.100">
-      <Text color="white">Item {itemId}</Text>
+    <Item bgColor="blue.400">
+      <Text color="white">{itemId}</Text>
     </Item>
   );
 };
