@@ -1,9 +1,10 @@
-import { Box, Button } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
+import { SideBar } from "./Sidebar";
 
 export const App: React.FC = () => {
   return (
-    <Box>
-      <Button colorScheme="facebook">Button</Button>
-    </Box>
+    <Flex gap="12">
+      <SideBar />
+    </Flex>
   );
 };
