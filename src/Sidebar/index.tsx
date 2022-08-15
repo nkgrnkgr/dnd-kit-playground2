@@ -1,7 +1,7 @@
 import { Box } from "@chakra-ui/react";
 import { useState } from "react";
 import { Card } from "../ui/Card";
-import { Item } from "./Item";
+import { SidebarItem } from "./Item";
 
 export const SideBar: React.FC = () => {
   const [itemIds] = useState<number[]>([1, 2, 3, 4, 5]);
@@ -20,7 +20,7 @@ export const SideBar: React.FC = () => {
               m: "12px",
             }}
           >
-            <Item itemId={itemId} />
+            <SidebarItem itemId={itemId} />
           </Box>
         ))}
       </Box>

@@ -5,7 +5,7 @@ type Props = {
   bgColor: string;
 };
 
-export const Card: React.FC<Props> = ({ children, bgColor }) => {
+export const Item: React.FC<Props> = ({ children, bgColor }) => {
   return (
     <Center p="4" w="200px" bg={bgColor}>
       {children}

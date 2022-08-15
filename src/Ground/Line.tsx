@@ -7,7 +7,7 @@ type Props = {
   //
 };
 
-export const Table: React.FC<Props> = () => {
+export const Line: React.FC<Props> = () => {
   const { isOver } = useDroppable({ id: GROUND_DROPPABLE_ID });
 
   return (

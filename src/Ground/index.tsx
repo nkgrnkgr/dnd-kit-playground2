@@ -1,6 +1,6 @@
 import { Box } from "@chakra-ui/react";
 import { Droppable } from "../dnd/Droppable";
-import { Table } from "./Table";
+import { Line } from "./Line";
 
 type Props = {
   //
@@ -19,7 +19,7 @@ export const Ground: React.FC<Props> = () => {
           minWidth: "900px",
         }}
       >
-        <Table />
+        <Line />
       </Box>
     </Droppable>
   );
