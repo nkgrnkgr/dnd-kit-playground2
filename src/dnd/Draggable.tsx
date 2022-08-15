@@ -8,7 +8,7 @@ type Props = {
 
 export const Draggable: React.FC<Props> = ({ children, itemId }) => {
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
-    id: `itemId-${itemId}`,
+    id: `ItemId-${itemId}`,
   });
   const style = transform
     ? {

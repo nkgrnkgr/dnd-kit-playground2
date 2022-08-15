@@ -7,8 +7,8 @@ type Props = {
 
 export const LineItem: React.FC<Props> = ({ itemId }) => {
   return (
-    <Item bgColor="teal.100">
-      <Text color="white">Item {itemId}</Text>
+    <Item bgColor="blue.400">
+      <Text color="white">{itemId}</Text>
     </Item>
   );
 };

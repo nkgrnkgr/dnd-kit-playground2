@@ -18,7 +18,7 @@ export const SidebarItem: React.FC<Props> = ({ itemId }) => {
           color="white"
           as={RiDragMove2Fill}
         />
-        <Text color="white">Draggable {itemId}</Text>
+        <Text color="white">ItemId-{itemId}</Text>
       </Item>
     </Draggable>
   );
