@@ -1,10 +1,10 @@
-import { Center, Icon, Spacer, Text } from "@chakra-ui/react";
+import { Icon, Text } from "@chakra-ui/react";
 import { RiDragMove2Fill } from "react-icons/ri";
 import { Draggable } from "../dnd/Draggable";
 import { Item } from "../ui/Item";
 
 type Props = {
-  itemId: number;
+  itemId: string;
 };
 
 export const SidebarItem: React.FC<Props> = ({ itemId }) => {

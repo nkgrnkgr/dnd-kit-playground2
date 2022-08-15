@@ -2,7 +2,7 @@ import { Text } from "@chakra-ui/react";
 import { Item } from "../ui/Item";
 
 type Props = {
-  itemId: number;
+  itemId: string;
 };
 
 export const LineItem: React.FC<Props> = ({ itemId }) => {

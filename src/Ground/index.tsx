@@ -19,7 +19,7 @@ export const Ground: React.FC<Props> = () => {
           minWidth: "900px",
         }}
       >
-        <Line />
+        <Line lineId={"line-1"} />
       </Box>
     </Droppable>
   );
