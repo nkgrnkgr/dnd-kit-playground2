@@ -1,4 +1,4 @@
-import { Box, Flex } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 import { useDroppable } from "@dnd-kit/core";
 import { useRecoilState } from "recoil";
 import { GROUND_DROPPABLE_ID } from ".";
@@ -36,6 +36,7 @@ export const Line: React.FC<Props> = ({ lineId }) => {
   const [lineContents] = useRecoilState(lineContentState(`${lineId}`));
 
   const { isOver } = useDroppable({ id: GROUND_DROPPABLE_ID });
+
   const created = createLineContents(lineContents, isOver, 0);
   return (
     <Flex
