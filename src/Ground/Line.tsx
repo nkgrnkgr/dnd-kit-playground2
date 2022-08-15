@@ -19,28 +19,24 @@ const createLineContents = (
   isOver: boolean,
   index: number
 ): LineContent[] => {
+  if (!isOver) {
+    return lineContents;
+  }
+
   if (index === 0) {
     return [PLACE_HOLDER_CONTENT, ...lineContents];
   }
 
   const pre = lineContents.slice(0, index);
   const after = lineContents.slice(index, lineContents.length);
-
-  const contents = isOver
-    ? [...pre, PLACE_HOLDER_CONTENT, ...after]
-    : lineContents;
-
-  return contents;
+  return [...pre, PLACE_HOLDER_CONTENT, ...after];
 };
 
 export const Line: React.FC<Props> = ({ lineId }) => {
   const [lineContents] = useRecoilState(lineContentState(`${lineId}`));
 
   const { isOver } = useDroppable({ id: GROUND_DROPPABLE_ID });
-
-  const created = createLineContents(lineContents, isOver, 1);
-
-  console.log(created.length);
+  const created = createLineContents(lineContents, isOver, 0);
   return (
     <Flex
       sx={{
