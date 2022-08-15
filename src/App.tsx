@@ -1,3 +1,9 @@
+import { Box, Button } from "@chakra-ui/react";
+
 export const App: React.FC = () => {
-  <div>app</div>;
+  return (
+    <Box>
+      <Button colorScheme="facebook">Button</Button>
+    </Box>
+  );
 };
