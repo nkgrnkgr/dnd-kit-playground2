@@ -10,6 +10,7 @@ import { useState } from "react";
 import { useRecoilState } from "recoil";
 import { Ground } from "./Ground";
 import { EMPTY_LINE_ID } from "./Ground/Line/EmptyLine";
+import { OverLayItem } from "./Ground/Line/OverlayItem";
 import { SortableLineItem } from "./Ground/Line/SortableLineItem";
 import { createSortableItemId, getIdFromDraggable, getIdType } from "./lib/id";
 import { insertToArray } from "./lib/insertToArray";
@@ -69,7 +70,7 @@ export const App: React.FC = () => {
         </Box>
       </Flex>
       <DragOverlay>
-        {activeId ? <SortableLineItem itemId={activeId} /> : null}
+        {activeId ? <OverLayItem itemId={activeId} /> : null}
       </DragOverlay>
     </DndContext>
   );
