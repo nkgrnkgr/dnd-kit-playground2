@@ -3,7 +3,7 @@ import { atomFamily } from "recoil";
 export type LineType = "normal" | "placeholder";
 
 export type LineContent = {
-  lineId: string;
+  contentId: string;
   lineType: LineType;
 };
 

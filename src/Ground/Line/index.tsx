@@ -12,7 +12,7 @@ type Props = {
 export const Line: React.FC<Props> = ({ lineId }) => {
   const [lineContents] = useRecoilState(lineContentState(`${lineId}`));
 
-  const ids = lineContents.map((c) => c.lineId);
+  const ids = lineContents.map((c) => c.contentId);
 
   return (
     <Flex
@@ -23,7 +23,10 @@ export const Line: React.FC<Props> = ({ lineId }) => {
     >
       <SortableContext items={ids}>
         {lineContents.map((content) => (
-          <SortableLineItem key={content.lineId} itemId={content.lineId} />
+          <SortableLineItem
+            key={content.contentId}
+            itemId={content.contentId}
+          />
         ))}
       </SortableContext>
       <EmptyLine />

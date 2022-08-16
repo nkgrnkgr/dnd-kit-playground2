@@ -21,7 +21,7 @@ export const App: React.FC = () => {
     lineContentState("line1")
   );
 
-  const droppableIds = [EMPTY_LINE_ID, ...lineContents.map((c) => c.lineId)];
+  const droppableIds = [EMPTY_LINE_ID, ...lineContents.map((c) => c.contentId)];
 
   const [activeId, setActiveId] = useState<string | null>(null);
 
@@ -37,7 +37,7 @@ export const App: React.FC = () => {
           const id = getIdFromDraggable(activeId);
           const inserted = insertToArray<LineContent>(
             lineContents,
-            { lineId: createSortableItemId(id), lineType: "normal" },
+            { contentId: createSortableItemId(id), lineType: "normal" },
             overIdIndex
           );
           setLineContents([...inserted]);
@@ -82,12 +82,12 @@ const getOverIdIndex = (lineContents: LineContent[], overId: string) => {
     return lineContents.length;
   }
 
-  return lineContents.findIndex((c) => c.lineId === overId);
+  return lineContents.findIndex((c) => c.contentId === overId);
 };
 
 const getActiveIdIndex = (lineContents: LineContent[], activeId: string) => {
   if (getIdType(activeId) !== "sortable") {
     return lineContents.length;
   }
-  return lineContents.findIndex((c) => c.lineId === activeId);
+  return lineContents.findIndex((c) => c.contentId === activeId);
 };
