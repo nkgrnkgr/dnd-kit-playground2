@@ -20,6 +20,7 @@ export const App: React.FC = () => {
   const handleDragEnd = (event: DragEndEvent) => {
     if (event.over && droppableIds.includes(event.over.id.toString())) {
       if (event.active.id) {
+        // 追加 or 移動の判定
         setLineContents([
           ...lineContents,
           {
