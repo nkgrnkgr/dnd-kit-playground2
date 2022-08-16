@@ -14,7 +14,7 @@ const Component: React.FC<Props> = ({ itemId }) => {
     id: itemId,
   });
 
-  const placeholderShown = isOver && !isDragging;
+  const placeholderShown = isOver && !isSorting;
 
   return (
     <Flex gap={2}>
