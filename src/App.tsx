@@ -1,11 +1,11 @@
 import { Box, Code, Flex } from "@chakra-ui/react";
 import { DndContext, DragEndEvent } from "@dnd-kit/core";
+import { arrayMove } from "@dnd-kit/sortable";
 import { useRecoilState } from "recoil";
 import { Ground } from "./Ground";
 import { EMPTY_LINE_ID } from "./Ground/Line/EmptyLine";
 import { createSortableItemId, getIdFromDraggable, getIdType } from "./lib/id";
 import { insertToArray } from "./lib/insertToArray";
-import { replaceArrayElements } from "./lib/replaceArrayElements";
 import { SideBar } from "./Sidebar";
 import { LineContent, lineContentState } from "./store/line";
 
@@ -36,12 +36,9 @@ export const App: React.FC = () => {
         }
         if (type === "sortable") {
           const activeIdIndex = getActiveIdIndex(lineContents, activeId);
-          const replaced = replaceArrayElements(
-            lineContents,
-            overIdIndex,
-            activeIdIndex
-          );
-          setLineContents([...replaced]);
+          const moved = arrayMove(lineContents, activeIdIndex, overIdIndex);
+          setLineContents([...moved]);
+          return;
         }
       }
     }
