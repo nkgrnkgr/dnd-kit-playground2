@@ -1,5 +1,6 @@
 import { Flex, Text } from "@chakra-ui/react";
 import { SortableItem } from "../../dnd/SortableItem";
+import { createSortableItemId } from "../../lib/id";
 import { Item } from "../../ui/Item";
 
 type Props = {

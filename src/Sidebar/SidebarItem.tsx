@@ -1,6 +1,7 @@
 import { Icon, Text } from "@chakra-ui/react";
 import { RiDragMove2Fill } from "react-icons/ri";
 import { Draggable } from "../dnd/Draggable";
+import { createDraggableItemId } from "../lib/id";
 import { Item } from "../ui/Item";
 
 type Props = {
@@ -9,7 +10,7 @@ type Props = {
 
 export const SidebarItem: React.FC<Props> = ({ itemId }) => {
   return (
-    <Draggable itemId={itemId}>
+    <Draggable itemId={createDraggableItemId(itemId)}>
       <Item bgColor="tomato">
         <Icon
           sx={{
@@ -18,7 +19,7 @@ export const SidebarItem: React.FC<Props> = ({ itemId }) => {
           color="white"
           as={RiDragMove2Fill}
         />
-        <Text color="white">ItemId-{itemId}</Text>
+        <Text color="white">draggable-{itemId}</Text>
       </Item>
     </Draggable>
   );

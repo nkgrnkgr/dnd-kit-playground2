@@ -3,7 +3,9 @@ import { DndContext, DragEndEvent } from "@dnd-kit/core";
 import { useRecoilState } from "recoil";
 import { Ground } from "./Ground";
 import { EMPTY_LINE_ID } from "./Ground/Line/EmptyLine";
+import { createSortableItemId, getIdFromDraggable, getIdType } from "./lib/id";
 import { insertToArray } from "./lib/insertToArray";
+import { replaceArrayElements } from "./lib/replaceArrayElements";
 import { SideBar } from "./Sidebar";
 import { LineContent, lineContentState } from "./store/line";
 
@@ -12,22 +14,35 @@ export const App: React.FC = () => {
     lineContentState("line1")
   );
 
-  const droppableIds = [EMPTY_LINE_ID];
+  const droppableIds = [EMPTY_LINE_ID, ...lineContents.map((c) => c.lineId)];
 
   const handleDragEnd = (event: DragEndEvent) => {
     if (event.over && droppableIds.includes(event.over.id.toString())) {
       if (event.active.id) {
-        const overId = event.over.id.toString();
-        const overIndex = lineContents.findIndex(
-          (content) => content.lineId === overId.split("droppable-")[1]
-        );
         const activeId = event.active.id.toString();
-        const inserted = insertToArray<LineContent>(
-          lineContents,
-          { lineId: `sortable-${activeId}`, lineType: "normal" },
-          lineContents.length
-        );
-        setLineContents([...inserted]);
+        const overId = event.over.id.toString();
+        const overIdIndex = getOverIdIndex(lineContents, overId);
+        const type = getIdType(activeId);
+
+        if (type === "draggable") {
+          const id = getIdFromDraggable(activeId);
+          const inserted = insertToArray<LineContent>(
+            lineContents,
+            { lineId: createSortableItemId(id), lineType: "normal" },
+            overIdIndex
+          );
+          setLineContents([...inserted]);
+          return;
+        }
+        if (type === "sortable") {
+          const activeIdIndex = getActiveIdIndex(lineContents, activeId);
+          const replaced = replaceArrayElements(
+            lineContents,
+            overIdIndex,
+            activeIdIndex
+          );
+          setLineContents([...replaced]);
+        }
       }
     }
   };
@@ -45,4 +60,19 @@ export const App: React.FC = () => {
       </Flex>
     </DndContext>
   );
+};
+
+const getOverIdIndex = (lineContents: LineContent[], overId: string) => {
+  if (getIdType(overId) !== "sortable") {
+    return lineContents.length;
+  }
+
+  return lineContents.findIndex((c) => c.lineId === overId);
+};
+
+const getActiveIdIndex = (lineContents: LineContent[], activeId: string) => {
+  if (getIdType(activeId) !== "sortable") {
+    return lineContents.length;
+  }
+  return lineContents.findIndex((c) => c.lineId === activeId);
 };
