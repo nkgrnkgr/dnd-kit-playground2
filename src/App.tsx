@@ -1,6 +1,5 @@
 import { Box, Code, Flex } from "@chakra-ui/react";
 import { DndContext, DragEndEvent } from "@dnd-kit/core";
-import { PresenceContext } from "framer-motion";
 import { useRecoilState } from "recoil";
 import { Ground } from "./Ground";
 import { EMPTY_LINE_ID } from "./Ground/Line/EmptyLine";
