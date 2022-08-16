@@ -1,11 +1,18 @@
 import { Box, Code, Flex } from "@chakra-ui/react";
-import { DndContext, DragEndEvent } from "@dnd-kit/core";
+import {
+  DndContext,
+  DragEndEvent,
+  DragOverlay,
+  DragStartEvent,
+} from "@dnd-kit/core";
+import { arrayMove } from "@dnd-kit/sortable";
+import { useState } from "react";
 import { useRecoilState } from "recoil";
 import { Ground } from "./Ground";
 import { EMPTY_LINE_ID } from "./Ground/Line/EmptyLine";
-import { createDroppableItemId } from "./Ground/Line/LineItem";
+import { OverLayItem } from "./Ground/Line/OverlayItem";
+import { createSortableItemId, getIdFromDraggable, getIdType } from "./lib/id";
 import { insertToArray } from "./lib/insertToArray";
-import { replaceArrayElements } from "./lib/replaceArrayElements";
 import { SideBar } from "./Sidebar";
 import { LineContent, lineContentState } from "./store/line";
 
@@ -14,52 +21,44 @@ export const App: React.FC = () => {
     lineContentState("line1")
   );
 
-  const droppableIds = [
-    EMPTY_LINE_ID,
-    ...lineContents.map((c) => createDroppableItemId(c.lineId)),
-  ];
+  const droppableIds = [EMPTY_LINE_ID, ...lineContents.map((c) => c.lineId)];
+
+  const [activeId, setActiveId] = useState<string | null>(null);
 
   const handleDragEnd = (event: DragEndEvent) => {
     if (event.over && droppableIds.includes(event.over.id.toString())) {
       if (event.active.id) {
-        const overId = event.over.id.toString();
-        const overIndex = lineContents.findIndex(
-          (content) => content.lineId === overId.split("droppable-")[1]
-        );
         const activeId = event.active.id.toString();
-        const activeIndex = lineContents.findIndex(
-          (content) => content.lineId === activeId.split("draggable-")[1]
-        );
+        const overId = event.over.id.toString();
+        const overIdIndex = getOverIdIndex(lineContents, overId);
+        const type = getIdType(activeId);
 
-        if (activeId.startsWith("draggable-")) {
-          // 移動
-          console.log(overIndex, activeIndex);
-          if (overIndex > -1 && activeIndex > -1) {
-            const replaced = replaceArrayElements(
-              lineContents,
-              overIndex,
-              activeIndex
-            );
-            setLineContents([...replaced]);
-          }
-        } else {
-          // 追加
+        if (type === "draggable") {
+          const id = getIdFromDraggable(activeId);
           const inserted = insertToArray<LineContent>(
             lineContents,
-            {
-              lineId: activeId,
-              lineType: "normal",
-            },
-            overIndex === -1 ? lineContents.length + 1 : overIndex
+            { lineId: createSortableItemId(id), lineType: "normal" },
+            overIdIndex
           );
           setLineContents([...inserted]);
+          return;
+        }
+        if (type === "sortable") {
+          const activeIdIndex = getActiveIdIndex(lineContents, activeId);
+          const moved = arrayMove(lineContents, activeIdIndex, overIdIndex);
+          setLineContents([...moved]);
+          return;
         }
       }
     }
   };
 
+  const handleDragStart = (event: DragStartEvent) => {
+    setActiveId(event.active.id.toString());
+  };
+
   return (
-    <DndContext onDragEnd={handleDragEnd}>
+    <DndContext onDragEnd={handleDragEnd} onDragStart={handleDragStart}>
       <Flex gap="12">
         <SideBar />
         <Ground />
@@ -69,6 +68,26 @@ export const App: React.FC = () => {
           </pre>
         </Box>
       </Flex>
+      <DragOverlay>
+        {activeId && getIdType(activeId) !== "draggable" ? (
+          <OverLayItem itemId={activeId} />
+        ) : null}
+      </DragOverlay>
     </DndContext>
   );
+};
+
+const getOverIdIndex = (lineContents: LineContent[], overId: string) => {
+  if (getIdType(overId) !== "sortable") {
+    return lineContents.length;
+  }
+
+  return lineContents.findIndex((c) => c.lineId === overId);
+};
+
+const getActiveIdIndex = (lineContents: LineContent[], activeId: string) => {
+  if (getIdType(activeId) !== "sortable") {
+    return lineContents.length;
+  }
+  return lineContents.findIndex((c) => c.lineId === activeId);
 };

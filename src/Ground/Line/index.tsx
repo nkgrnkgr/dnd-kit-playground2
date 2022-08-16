@@ -1,8 +1,9 @@
 import { Flex } from "@chakra-ui/react";
+import { SortableContext } from "@dnd-kit/sortable";
 import { useRecoilState } from "recoil";
 import { lineContentState } from "../../store/line";
 import { EmptyLine } from "./EmptyLine";
-import { Switcher } from "./Switcher";
+import { SortableLineItem } from "./SortableLineItem";
 
 type Props = {
   lineId: string;
@@ -11,6 +12,8 @@ type Props = {
 export const Line: React.FC<Props> = ({ lineId }) => {
   const [lineContents] = useRecoilState(lineContentState(`${lineId}`));
 
+  const ids = lineContents.map((c) => c.lineId);
+
   return (
     <Flex
       sx={{
@@ -18,9 +21,11 @@ export const Line: React.FC<Props> = ({ lineId }) => {
       }}
       gap={2}
     >
-      {lineContents.map((content, index) => (
-        <Switcher key={index} lineContent={content} />
-      ))}
+      <SortableContext items={ids}>
+        {lineContents.map((content) => (
+          <SortableLineItem key={content.lineId} itemId={content.lineId} />
+        ))}
+      </SortableContext>
       <EmptyLine />
     </Flex>
   );
