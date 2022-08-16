@@ -1,4 +1,4 @@
-import { LineContent } from "../store/line";
+import { LineContent } from "../../store/line";
 import { LineItem } from "./LineItem";
 import { PlaceHolder } from "./PlaceHolder";
 

@@ -1,17 +1,24 @@
 import { Flex } from "@chakra-ui/react";
 import { DndContext, DragEndEvent } from "@dnd-kit/core";
 import { useRecoilState } from "recoil";
-import { Ground, GROUND_DROPPABLE_ID, GROUND_LINE_ID } from "./Ground";
+import { Ground } from "./Ground";
+import { EMPTY_LINE_ID } from "./Ground/Line/EmptyLine";
+import { createDroppableItemId } from "./Ground/Line/LineItem";
 import { SideBar } from "./Sidebar";
 import { lineContentState } from "./store/line";
 
 export const App: React.FC = () => {
   const [lineContents, setLineContents] = useRecoilState(
-    lineContentState(GROUND_LINE_ID)
+    lineContentState("line1")
   );
 
+  const droppableIds = [
+    EMPTY_LINE_ID,
+    ...lineContents.map((c) => createDroppableItemId(c.lineId)),
+  ];
+
   const handleDragEnd = (event: DragEndEvent) => {
-    if (event.over && event.over.id === GROUND_DROPPABLE_ID) {
+    if (event.over && droppableIds.includes(event.over.id.toString())) {
       if (event.active.id) {
         setLineContents([
           ...lineContents,
