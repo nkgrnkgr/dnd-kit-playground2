@@ -11,7 +11,6 @@ import { useRecoilState } from "recoil";
 import { Ground } from "./Ground";
 import { EMPTY_LINE_ID } from "./Ground/Line/EmptyLine";
 import { OverLayItem } from "./Ground/Line/OverlayItem";
-import { SortableLineItem } from "./Ground/Line/SortableLineItem";
 import { createSortableItemId, getIdFromDraggable, getIdType } from "./lib/id";
 import { insertToArray } from "./lib/insertToArray";
 import { SideBar } from "./Sidebar";
@@ -70,7 +69,9 @@ export const App: React.FC = () => {
         </Box>
       </Flex>
       <DragOverlay>
-        {activeId ? <OverLayItem itemId={activeId} /> : null}
+        {activeId && getIdType(activeId) !== "draggable" ? (
+          <OverLayItem itemId={activeId} />
+        ) : null}
       </DragOverlay>
     </DndContext>
   );

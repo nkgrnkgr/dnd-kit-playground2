@@ -10,7 +10,7 @@ type Props = {
 };
 
 const Component: React.FC<Props> = ({ itemId }) => {
-  const { isOver, active, isDragging, isSorting } = useSortable({
+  const { isOver, active } = useSortable({
     id: itemId,
   });
 
