@@ -1,9 +1,16 @@
 import { Box, Code, Flex } from "@chakra-ui/react";
-import { DndContext, DragEndEvent } from "@dnd-kit/core";
+import {
+  DndContext,
+  DragEndEvent,
+  DragOverlay,
+  DragStartEvent,
+} from "@dnd-kit/core";
 import { arrayMove } from "@dnd-kit/sortable";
+import { useState } from "react";
 import { useRecoilState } from "recoil";
 import { Ground } from "./Ground";
 import { EMPTY_LINE_ID } from "./Ground/Line/EmptyLine";
+import { SortableLineItem } from "./Ground/Line/SortableLineItem";
 import { createSortableItemId, getIdFromDraggable, getIdType } from "./lib/id";
 import { insertToArray } from "./lib/insertToArray";
 import { SideBar } from "./Sidebar";
@@ -15,6 +22,8 @@ export const App: React.FC = () => {
   );
 
   const droppableIds = [EMPTY_LINE_ID, ...lineContents.map((c) => c.lineId)];
+
+  const [activeId, setActiveId] = useState<string | null>(null);
 
   const handleDragEnd = (event: DragEndEvent) => {
     if (event.over && droppableIds.includes(event.over.id.toString())) {
@@ -44,8 +53,12 @@ export const App: React.FC = () => {
     }
   };
 
+  const handleDragStart = (event: DragStartEvent) => {
+    setActiveId(event.active.id.toString());
+  };
+
   return (
-    <DndContext onDragEnd={handleDragEnd}>
+    <DndContext onDragEnd={handleDragEnd} onDragStart={handleDragStart}>
       <Flex gap="12">
         <SideBar />
         <Ground />
@@ -55,6 +68,9 @@ export const App: React.FC = () => {
           </pre>
         </Box>
       </Flex>
+      <DragOverlay>
+        {activeId ? <SortableLineItem itemId={activeId} /> : null}
+      </DragOverlay>
     </DndContext>
   );
 };
