@@ -10,7 +10,7 @@ type Props = {
 };
 
 const Component: React.FC<Props> = ({ itemId }) => {
-  const { isOver, active } = useSortable({
+  const { isOver, active, isDragging } = useSortable({
     id: itemId,
   });
 
@@ -26,7 +26,7 @@ const Component: React.FC<Props> = ({ itemId }) => {
     );
   }
 
-  if (getIdType(active?.id.toString() || "") === "sortable" && isOver) {
+  if (getIdType(active?.id.toString() || "") === "sortable" && isDragging) {
     return <PlaceHolder />;
   }
 
