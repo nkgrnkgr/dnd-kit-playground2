@@ -9,7 +9,7 @@ type Props = {
 };
 
 const Component: React.FC<Props> = ({ itemId }) => {
-  const { lineId, lineContent, placeholderShown } =
+  const { ref, lineId, lineContent, placeholderShown } =
     useSortableLineItemState(itemId);
 
   if (!lineContent) {
@@ -19,7 +19,7 @@ const Component: React.FC<Props> = ({ itemId }) => {
   const { from } = lineContent;
 
   return (
-    <Flex gap={2}>
+    <Flex gap={2} ref={ref}>
       {placeholderShown && <PlaceHolder />}
       <Item bgColor="blue.400">
         <Text color="white">

@@ -7,15 +7,20 @@ import {
 } from "@dnd-kit/core";
 import { arrayMove } from "@dnd-kit/sortable";
 import { useState } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { Ground } from "./Ground";
 import { OverLayItem } from "./Ground/Line/OverlayItem";
 import { createContentId, createEmptyLineId, extractIds } from "./lib/id";
 import { insertToArray } from "./lib/insertToArray";
 import { SideBar } from "./Sidebar";
+import { activeElementPropertyState } from "./store/activeElementProperty";
 import { LineContent, lineContentState } from "./store/line";
 
 export const App: React.FC = () => {
+  const setActiveElementProperty = useSetRecoilState(
+    activeElementPropertyState
+  );
+
   const [lineContentsA, setLineContentsA] = useRecoilState(
     lineContentState("A")
   );
@@ -66,6 +71,10 @@ export const App: React.FC = () => {
 
   const handleDragStart = (event: DragStartEvent) => {
     setActiveId(event.active.id.toString());
+    setActiveElementProperty({
+      height: event.active.rect.current.initial?.height,
+      width: event.active.rect.current.initial?.width,
+    });
   };
 
   return (
