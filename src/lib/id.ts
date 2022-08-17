@@ -11,6 +11,6 @@ export const createContentId = (lineId: string) =>
 
 export const extractIds = (id: string) => {
   const lineId = id.split(LINE_ID_POST_FIX)[0];
-  const contentId = id.split(LINE_ID_POST_FIX)[1];
-  return [lineId, contentId];
+  const uniqueId = id.split(LINE_ID_POST_FIX)[1];
+  return [lineId, uniqueId];
 };
