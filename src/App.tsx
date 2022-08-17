@@ -17,11 +17,18 @@ import { SideBar } from "./Sidebar";
 import { LineContent, lineContentState } from "./store/line";
 
 export const App: React.FC = () => {
-  const [lineContents, setLineContents] = useRecoilState(
-    lineContentState("line1")
+  const [lineContentsA, setLineContentsA] = useRecoilState(
+    lineContentState("A")
+  );
+  const [lineContentsB, setLineContentsB] = useRecoilState(
+    lineContentState("B")
   );
 
-  const droppableIds = [EMPTY_LINE_ID, ...lineContents.map((c) => c.contentId)];
+  const droppableIds = [
+    `${EMPTY_LINE_ID}-A`,
+    `${EMPTY_LINE_ID}-B`,
+    ...lineContentsA.map((c) => c.contentId),
+  ];
 
   const [activeId, setActiveId] = useState<string | null>(null);
 
@@ -30,24 +37,44 @@ export const App: React.FC = () => {
       if (event.active.id) {
         const activeId = event.active.id.toString();
         const overId = event.over.id.toString();
-        const overIdIndex = getOverIdIndex(lineContents, overId);
         const type = getIdType(activeId);
 
-        if (type === "draggable") {
-          const id = getIdFromDraggable(activeId);
-          const inserted = insertToArray<LineContent>(
-            lineContents,
-            { contentId: createSortableItemId(id), lineType: "normal" },
-            overIdIndex
-          );
-          setLineContents([...inserted]);
-          return;
-        }
-        if (type === "sortable") {
-          const activeIdIndex = getActiveIdIndex(lineContents, activeId);
-          const moved = arrayMove(lineContents, activeIdIndex, overIdIndex);
-          setLineContents([...moved]);
-          return;
+        if (overId.split("-")[1].match("A")) {
+          const overIdIndex = getOverIdIndex(lineContentsA, overId);
+          if (type === "draggable") {
+            const id = getIdFromDraggable(activeId);
+            const inserted = insertToArray<LineContent>(
+              lineContentsA,
+              { contentId: createSortableItemId("A", id), lineType: "normal" },
+              overIdIndex
+            );
+            setLineContentsA([...inserted]);
+            return;
+          }
+          if (type === "sortable") {
+            const activeIdIndex = getActiveIdIndex(lineContentsA, activeId);
+            const moved = arrayMove(lineContentsA, activeIdIndex, overIdIndex);
+            setLineContentsA([...moved]);
+            return;
+          }
+        } else {
+          const overIdIndex = getOverIdIndex(lineContentsB, overId);
+          if (type === "draggable") {
+            const id = getIdFromDraggable(activeId);
+            const inserted = insertToArray<LineContent>(
+              lineContentsB,
+              { contentId: createSortableItemId("B", id), lineType: "normal" },
+              overIdIndex
+            );
+            setLineContentsB([...inserted]);
+            return;
+          }
+          if (type === "sortable") {
+            const activeIdIndex = getActiveIdIndex(lineContentsB, activeId);
+            const moved = arrayMove(lineContentsB, activeIdIndex, overIdIndex);
+            setLineContentsB([...moved]);
+            return;
+          }
         }
       }
     }
@@ -64,7 +91,7 @@ export const App: React.FC = () => {
         <Ground />
         <Box>
           <pre>
-            <Code>{JSON.stringify(lineContents, null, 2)}</Code>
+            <Code>{JSON.stringify(lineContentsA, null, 2)}</Code>
           </pre>
         </Box>
       </Flex>

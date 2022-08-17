@@ -3,7 +3,8 @@ const SORTABLE_PREFIX = "sortable-";
 
 export const createDraggableItemId = (item: string) =>
   `${DRAGGABLE_PREFIX}${item}`;
-export const createSortableItemId = (item: string) => `sortable-${item}`;
+export const createSortableItemId = (lineId: string, item: string) =>
+  `sortable-${lineId}${item}`;
 export const getIdFromDraggable = (str: string) =>
   str.split(DRAGGABLE_PREFIX)[1];
 export const getIdFromSortable = (str: string) => str.split(SORTABLE_PREFIX)[1];

@@ -4,14 +4,14 @@ import { Droppable } from "../../../dnd/Droppable";
 import { PlaceHolder } from "../PlaceHolder";
 
 type Props = {
-  //
+  lineId: string;
 };
 
 export const EMPTY_LINE_ID = "EMPTY_LINE_ID";
 
-export const Component: React.FC<Props> = () => {
+export const Component: React.FC<Props> = ({ lineId }) => {
   const { isOver } = useDroppable({
-    id: EMPTY_LINE_ID,
+    id: `${EMPTY_LINE_ID}-${lineId}`,
   });
 
   return (
@@ -27,15 +27,17 @@ export const Component: React.FC<Props> = () => {
   );
 };
 
-export const EmptyLine: React.FC<Props> = () => {
+export const EmptyLine: React.FC<Props> = ({ lineId }) => {
   return (
     <Droppable
       style={{
         flex: "1",
+        backgroundColor: "red",
+        minHeight: "56px",
       }}
-      droppableId={EMPTY_LINE_ID}
+      droppableId={`${EMPTY_LINE_ID}-${lineId}`}
     >
-      <Component />
+      <Component lineId={lineId} />
     </Droppable>
   );
 };

@@ -1,4 +1,4 @@
-import { Box } from "@chakra-ui/react";
+import { Box, VStack } from "@chakra-ui/react";
 import { Line } from "./Line";
 
 type Props = {
@@ -15,7 +15,10 @@ export const Ground: React.FC<Props> = () => {
         minWidth: "900px",
       }}
     >
-      <Line lineId="line1" />
+      <VStack spacing="12px">
+        <Line lineId="A" />
+        <Line lineId="B" />
+      </VStack>
     </Box>
   );
 };
