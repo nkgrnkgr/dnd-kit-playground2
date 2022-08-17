@@ -1,17 +1,16 @@
 import { Box, Flex } from "@chakra-ui/react";
 import { useDroppable } from "@dnd-kit/core";
 import { Droppable } from "../../../dnd/Droppable";
+import { createEmptyLineId } from "../../../lib/id";
 import { PlaceHolder } from "../PlaceHolder";
 
 type Props = {
-  //
+  lineId: string;
 };
 
-export const EMPTY_LINE_ID = "EMPTY_LINE_ID";
-
-export const Component: React.FC<Props> = () => {
+export const Component: React.FC<Props> = ({ lineId }) => {
   const { isOver } = useDroppable({
-    id: EMPTY_LINE_ID,
+    id: createEmptyLineId(lineId),
   });
 
   return (
@@ -27,15 +26,17 @@ export const Component: React.FC<Props> = () => {
   );
 };
 
-export const EmptyLine: React.FC<Props> = () => {
+export const EmptyLine: React.FC<Props> = ({ lineId }) => {
   return (
     <Droppable
       style={{
         flex: "1",
+        backgroundColor: "white",
+        minHeight: "56px",
       }}
-      droppableId={EMPTY_LINE_ID}
+      droppableId={createEmptyLineId(lineId)}
     >
-      <Component />
+      <Component lineId={lineId} />
     </Droppable>
   );
 };

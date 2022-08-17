@@ -1,21 +1,16 @@
-const DRAGGABLE_PREFIX = "draggable-";
-const SORTABLE_PREFIX = "sortable-";
+import { v4 as uuid } from "uuid";
 
-export const createDraggableItemId = (item: string) =>
-  `${DRAGGABLE_PREFIX}${item}`;
-export const createSortableItemId = (item: string) => `sortable-${item}`;
-export const getIdFromDraggable = (str: string) =>
-  str.split(DRAGGABLE_PREFIX)[1];
-export const getIdFromSortable = (str: string) => str.split(SORTABLE_PREFIX)[1];
+const LINE_ID_POST_FIX = "#";
 
-export const getIdType = (str: string) => {
-  if (str.startsWith(DRAGGABLE_PREFIX)) {
-    return "draggable";
-  }
+export const EMPTY_LINE_ID = "EMPTY";
+export const createEmptyLineId = (lineId: string) =>
+  `${lineId}${LINE_ID_POST_FIX}${EMPTY_LINE_ID}`;
 
-  if (str.startsWith(SORTABLE_PREFIX)) {
-    return "sortable";
-  }
+export const createContentId = (lineId: string) =>
+  `${lineId}${LINE_ID_POST_FIX}${uuid()}`;
 
-  return "";
+export const extractIds = (id: string) => {
+  const lineId = id.split(LINE_ID_POST_FIX)[0];
+  const uniqueId = id.split(LINE_ID_POST_FIX)[1];
+  return [lineId, uniqueId];
 };

@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
+    "typecheck": "tsc --noEmit",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -15,11 +16,13 @@
     "@dnd-kit/sortable": "^7.0.1",
     "@emotion/react": "^11.10.0",
     "@emotion/styled": "^11.10.0",
+    "@types/uuid": "^8.3.4",
     "framer-motion": "^7.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.4.0",
-    "recoil": "^0.7.5"
+    "recoil": "^0.7.5",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@types/react": "^18.0.17",
