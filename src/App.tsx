@@ -39,62 +39,26 @@ export const App: React.FC = () => {
         return;
       }
       const [overLineId] = extractIds(overId);
-
       if (overLineId === "A") {
-        const found = lineContentsA.find((c) => c.contentId === activeId);
-        const overIdIndex = lineContentsA.findIndex(
-          (c) => c.contentId === overId
+        insertOrUpdate(
+          lineContentsA,
+          setLineContentsA,
+          lineContentsB,
+          setLineContentsB,
+          activeId,
+          overId
         );
-        // 追加
-        if (!found) {
-          const inserted = insertToArray<LineContent>(
-            lineContentsA,
-            {
-              contentId: createContentId(overLineId),
-              lineType: "normal",
-              from: activeId,
-            },
-            overIdIndex >= 0 ? overIdIndex : lineContentsA.length
-          );
-
-          setLineContentsA([...inserted]);
-          return;
-        }
-        // ソート
-        const activeIndex = lineContentsA.findIndex(
-          (c) => c.contentId === activeId
-        );
-        const moved = arrayMove(lineContentsA, activeIndex, overIdIndex);
-        setLineContentsA([...moved]);
         return;
       }
-
       if (overLineId === "B") {
-        const found = lineContentsB.find((c) => c.contentId === activeId);
-        const overIdIndex = lineContentsB.findIndex(
-          (c) => c.contentId === overId
+        insertOrUpdate(
+          lineContentsB,
+          setLineContentsB,
+          lineContentsA,
+          setLineContentsA,
+          activeId,
+          overId
         );
-        // 追加 & 削除
-        if (!found) {
-          const inserted = insertToArray<LineContent>(
-            lineContentsB,
-            {
-              contentId: createContentId(overLineId),
-              lineType: "normal",
-              from: activeId,
-            },
-            overIdIndex >= 0 ? overIdIndex : lineContentsB.length
-          );
-
-          setLineContentsB([...inserted]);
-          return;
-        }
-        // ソート
-        const activeIndex = lineContentsB.findIndex(
-          (c) => c.contentId === activeId
-        );
-        const moved = arrayMove(lineContentsB, activeIndex, overIdIndex);
-        setLineContentsA([...moved]);
         return;
       }
     }
@@ -126,4 +90,46 @@ export const App: React.FC = () => {
       </DragOverlay>
     </DndContext>
   );
+};
+
+const insertOrUpdate = (
+  lineContentsOriginal: LineContent[],
+  setLineContentsOriginal: (lineContents: LineContent[]) => void,
+  lineContentsAnother: LineContent[],
+  setLineContentsAnother: (lineContents: LineContent[]) => void,
+  activeId: string,
+  overId: string
+) => {
+  const found = lineContentsOriginal.find((c) => c.contentId === activeId);
+  const overIdIndex = lineContentsOriginal.findIndex(
+    (c) => c.contentId === overId
+  );
+  const [overLineId] = extractIds(overId);
+  // 追加 & 削除
+  if (!found) {
+    const inserted = insertToArray<LineContent>(
+      lineContentsOriginal,
+      {
+        contentId: createContentId(overLineId),
+        lineType: "normal",
+        from: activeId,
+      },
+      overIdIndex >= 0 ? overIdIndex : lineContentsOriginal.length
+    );
+    setLineContentsOriginal([...inserted]);
+
+    // 削除
+    const filtered = lineContentsAnother.filter(
+      (c) => c.contentId !== activeId
+    );
+    setLineContentsAnother([...filtered]);
+    return;
+  }
+  // ソート
+  const activeIndex = lineContentsOriginal.findIndex(
+    (c) => c.contentId === activeId
+  );
+  const moved = arrayMove(lineContentsOriginal, activeIndex, overIdIndex);
+  setLineContentsOriginal([...moved]);
+  return;
 };
