@@ -18,7 +18,7 @@ export const Line: React.FC<Props> = ({ lineId }) => {
     <Box
       sx={{
         w: "100%",
-        h: "56px",
+        minHeight: "56px",
       }}
     >
       <SortableContext items={ids}>
