@@ -32,7 +32,7 @@ export const EmptyLine: React.FC<Props> = ({ lineId }) => {
     <Droppable
       style={{
         flex: "1",
-        backgroundColor: "red",
+        backgroundColor: "white",
         minHeight: "56px",
       }}
       droppableId={`${EMPTY_LINE_ID}-${lineId}`}
