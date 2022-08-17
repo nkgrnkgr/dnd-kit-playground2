@@ -12,7 +12,7 @@ export const Ground: React.FC<Props> = () => {
         bgColor: "gray.100",
         p: "12px",
         h: "100vh",
-        minWidth: "900px",
+        minWidth: "800px",
       }}
     >
       <VStack spacing="12px">

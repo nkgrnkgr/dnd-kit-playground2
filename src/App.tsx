@@ -1,4 +1,4 @@
-import { Box, Code, Flex } from "@chakra-ui/react";
+import { Box, Code, Flex, Text } from "@chakra-ui/react";
 import {
   DndContext,
   DragEndEvent,
@@ -53,6 +53,7 @@ export const App: React.FC = () => {
             return;
           }
           if (type === "sortable") {
+            console.log(activeId);
             const activeIdIndex = getActiveIdIndex(lineContentsA, activeId);
             const moved = arrayMove(lineContentsA, activeIdIndex, overIdIndex);
             setLineContentsA([...moved]);
@@ -91,8 +92,13 @@ export const App: React.FC = () => {
         <SideBar />
         <Ground />
         <Box>
+          <Text>A</Text>
           <pre>
             <Code>{JSON.stringify(lineContentsA, null, 2)}</Code>
+          </pre>
+          <Text>B</Text>
+          <pre>
+            <Code>{JSON.stringify(lineContentsB, null, 2)}</Code>
           </pre>
         </Box>
       </Flex>
