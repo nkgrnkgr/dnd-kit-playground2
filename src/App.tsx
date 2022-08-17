@@ -28,6 +28,7 @@ export const App: React.FC = () => {
     `${EMPTY_LINE_ID}-A`,
     `${EMPTY_LINE_ID}-B`,
     ...lineContentsA.map((c) => c.contentId),
+    ...lineContentsB.map((c) => c.contentId),
   ];
 
   const [activeId, setActiveId] = useState<string | null>(null);
