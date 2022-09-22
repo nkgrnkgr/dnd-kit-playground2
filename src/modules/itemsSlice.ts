@@ -4,6 +4,7 @@ import {
   PayloadAction,
 } from "@reduxjs/toolkit";
 import { v4 as uuid } from "uuid";
+import { RootState } from "./store";
 
 export const ITEM_TYPE = {
   SMALL: "SMALL",
@@ -36,3 +37,7 @@ export const { reducer, actions } = createSlice({
     },
   },
 });
+
+export const itemsSelector = itemsAdapter.getSelectors<RootState>(
+  (state) => state.items
+);
