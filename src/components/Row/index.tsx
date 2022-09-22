@@ -1,4 +1,5 @@
 import { Box, Flex } from "@chakra-ui/react";
+import { useDroppable } from "@dnd-kit/core";
 import { SortableContext } from "@dnd-kit/sortable";
 import { useSelector } from "react-redux";
 import { Droppable } from "../../dnd/Droppable";
@@ -35,7 +36,7 @@ export const Row: React.FC<Props> = ({ rowId }) => {
             {itemIds.map((id) => (
               <SortableRowItem key={id} itemId={id} />
             ))}
-            <Empty itemId={rowId} />
+            <Empty itemId={`${rowId}-empty`} />
           </Flex>
         </Droppable>
       </SortableContext>

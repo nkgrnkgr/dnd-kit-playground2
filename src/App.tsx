@@ -2,6 +2,7 @@ import { Flex } from "@chakra-ui/react";
 import {
   DndContext,
   DragEndEvent,
+  DragOverEvent,
   DragOverlay,
   DragStartEvent,
 } from "@dnd-kit/core";
