@@ -1,6 +1,6 @@
 import { Flex, Text } from "@chakra-ui/react";
 import { SortableItem } from "../../../dnd/SortableItem";
-import { Item } from "../../../ui/Item";
+import { ItemType } from "../../../ui/Item";
 import { PlaceHolder } from ".././PlaceHolder";
 import { useSortableLineItemState } from "./useSortableLineItemState";
 

@@ -1,11 +1,27 @@
 import { Box } from "@chakra-ui/react";
-import { useState } from "react";
+import { Item, ITEM_TYPE } from "../modules/itemsSlice";
 import { Card } from "../ui/Card";
 import { SidebarItem } from "./SidebarItem";
 
-export const SideBar: React.FC = () => {
-  const [itemIds] = useState<string[]>(["1", "2", "3"]);
+export const SIDEBAR_ITEMS: Item[] = [
+  {
+    itemId: "1",
+    isPlaceHolder: false,
+    type: ITEM_TYPE.SMALL,
+  },
+  {
+    itemId: "2",
+    isPlaceHolder: false,
+    type: ITEM_TYPE.MIDDLE,
+  },
+  {
+    itemId: "3",
+    isPlaceHolder: false,
+    type: ITEM_TYPE.LARGE,
+  },
+];
 
+export const SideBar: React.FC = () => {
   return (
     <Card>
       <Box
@@ -13,14 +29,14 @@ export const SideBar: React.FC = () => {
           h: "100vh",
         }}
       >
-        {itemIds.map((itemId) => (
+        {SIDEBAR_ITEMS.map((item) => (
           <Box
-            key={itemId}
+            key={item.itemId}
             sx={{
               m: "12px",
             }}
           >
-            <SidebarItem itemId={itemId} />
+            <SidebarItem item={item} />
           </Box>
         ))}
       </Box>
