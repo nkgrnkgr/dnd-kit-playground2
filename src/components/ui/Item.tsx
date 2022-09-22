@@ -1,13 +1,13 @@
 import { Center } from "@chakra-ui/react";
-import { Item as ItemT, ITEM_TYPE } from "../modules/itemsSlice";
+import { Item, ItemType, ITEM_TYPE } from "../../modules/itemsSlice";
 
 type Props = {
   children: React.ReactNode;
   bgColor: string;
-  type: ItemT["type"];
+  type: Item["type"];
 };
 
-export const ITEM_HIGHT: Record<ItemT["type"], string> = {
+export const ITEM_HIGHT: Record<ItemType, string> = {
   [ITEM_TYPE.SMALL]: "56px",
   [ITEM_TYPE.MIDDLE]: "112px",
   [ITEM_TYPE.LARGE]: "168px",

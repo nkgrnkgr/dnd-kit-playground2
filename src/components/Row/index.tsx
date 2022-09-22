@@ -1,5 +1,4 @@
 import { Box, Flex } from "@chakra-ui/react";
-import { useDroppable } from "@dnd-kit/core";
 import { SortableContext } from "@dnd-kit/sortable";
 import { useSelector } from "react-redux";
 import { Droppable } from "../../dnd/Droppable";

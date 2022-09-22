@@ -1,10 +1,10 @@
 import { Flex, Text } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
 import { SortableItem } from "../../dnd/SortableItem";
-import { Item, itemsSelector } from "../../modules/itemsSlice";
+import { itemsSelector } from "../../modules/itemsSlice";
 import { RootState } from "../../modules/store";
-import { ItemComponent } from "../../ui/Item";
 import { PlaceHolder } from "../PlaceHolder";
+import { ItemComponent } from "../ui/Item";
 
 type Props = {
   itemId: string;

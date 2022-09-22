@@ -10,6 +10,7 @@ import { arrayMove } from "@dnd-kit/sortable";
 import { useSelector } from "react-redux";
 import { Form } from "./components/Form";
 import { OverLayItem } from "./components/OverlayItem";
+import { ITEM_HIGHT } from "./components/ui/Item";
 import { createContentId, extractIds } from "./lib/id";
 import { insertToArray } from "./lib/insertToArray";
 import { ItemType } from "./modules/itemsSlice";
@@ -18,7 +19,6 @@ import { RootState, useRootDispatch } from "./modules/store";
 import { Result } from "./Result";
 import { SideBar } from "./Sidebar";
 import { LineContent } from "./store/line";
-import { ITEM_HIGHT } from "./ui/Item";
 
 export const App: React.FC = () => {
   const handleDragEnd = (event: DragEndEvent) => {};
