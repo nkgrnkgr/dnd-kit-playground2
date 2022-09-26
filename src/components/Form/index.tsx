@@ -1,4 +1,5 @@
 import { Box, VStack } from "@chakra-ui/react";
+import { SortableContext } from "@dnd-kit/sortable";
 import { useSelector } from "react-redux";
 import { rowsSelector } from "../../modules/rowsSlice";
 import { Row } from "./Row";
@@ -16,9 +17,11 @@ export const Form = () => {
       }}
     >
       <VStack spacing="12px">
-        {rowIds.map((rowId) => (
-          <Row key={rowId} rowId={rowId.toString()} />
-        ))}
+        <SortableContext items={rowIds}>
+          {rowIds.map((rowId) => (
+            <Row key={rowId} rowId={rowId.toString()} />
+          ))}
+        </SortableContext>
       </VStack>
     </Box>
   );
