@@ -1,6 +1,6 @@
 import { Box, VStack } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
-import { rowsSelector } from "../modules/rowsSlice";
+import { rowsSelector } from "../../modules/rowsSlice";
 import { Row } from "./Row";
 
 export const Form = () => {

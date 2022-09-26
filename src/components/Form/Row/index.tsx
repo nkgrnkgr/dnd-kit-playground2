@@ -1,11 +1,11 @@
 import { Box, Flex } from "@chakra-ui/react";
 import { SortableContext } from "@dnd-kit/sortable";
 import { useSelector } from "react-redux";
-import { rowsSelector } from "../../modules/rowsSlice";
-import { RootState } from "../../modules/store";
-import { Empty } from "../Empty";
-import { Droppable } from "../helper/dnd/Droppable";
-import { SortableRowItem } from "../SortableRowItem";
+import { rowsSelector } from "../../../modules/rowsSlice";
+import { RootState } from "../../../modules/store";
+import { Empty } from "./Empty";
+import { Droppable } from "../../helper/dnd/Droppable";
+import { SortableRowItem } from "./SortableRowItem";
 
 type Props = {
   rowId: string;
