@@ -1,6 +1,6 @@
 import { Flex } from "@chakra-ui/react";
 import { useDroppable } from "@dnd-kit/core";
-import { Droppable } from "./dnd/Droppable";
+import { Droppable } from "./helper/dnd/Droppable";
 import { PlaceHolder } from "./PlaceHolder";
 
 type ComponentProps = {

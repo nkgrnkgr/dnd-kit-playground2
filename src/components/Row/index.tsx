@@ -1,10 +1,10 @@
 import { Box, Flex } from "@chakra-ui/react";
 import { SortableContext } from "@dnd-kit/sortable";
 import { useSelector } from "react-redux";
-import { Droppable } from "../../dnd/Droppable";
 import { rowsSelector } from "../../modules/rowsSlice";
 import { RootState } from "../../modules/store";
 import { Empty } from "../Empty";
+import { Droppable } from "../helper/dnd/Droppable";
 import { SortableRowItem } from "../SortableRowItem";
 
 type Props = {
