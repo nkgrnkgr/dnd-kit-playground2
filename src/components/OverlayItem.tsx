@@ -1,6 +1,5 @@
 import { Box } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
-import { SortableItem } from "../dnd/SortableItem";
 import { RootState } from "../modules/store";
 
 type TransparentProps = {
