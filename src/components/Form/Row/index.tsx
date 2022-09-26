@@ -3,8 +3,9 @@ import { SortableContext } from "@dnd-kit/sortable";
 import { useSelector } from "react-redux";
 import { rowsSelector } from "../../../modules/rowsSlice";
 import { RootState } from "../../../modules/store";
-import { Empty } from "./Empty";
 import { Droppable } from "../../helper/dnd/Droppable";
+import { DragHandler } from "./DragHandler";
+import { Empty } from "./Empty";
 import { SortableRowItem } from "./SortableRowItem";
 
 type Props = {
@@ -28,13 +29,22 @@ export const Row: React.FC<Props> = ({ rowId }) => {
         <Droppable droppableId={rowId} rowId={rowId}>
           <Flex
             sx={{
-              mt: "12px",
+              display: "flex",
+              alignItems: "center",
+              gap: 2,
             }}
-            gap={2}
           >
-            {itemIds.map((id) => (
-              <SortableRowItem key={id} itemId={id} rowId={rowId} />
-            ))}
+            <DragHandler />
+            <Box
+              sx={{
+                display: "flex",
+                gap: 2,
+              }}
+            >
+              {itemIds.map((id) => (
+                <SortableRowItem key={id} itemId={id} rowId={rowId} />
+              ))}
+            </Box>
             <Empty itemId={`${rowId}-empty`} rowId={rowId} />
           </Flex>
         </Droppable>

@@ -21,6 +21,8 @@ const rowsAdapter = createEntityAdapter<Row>({
 const filledState = rowsAdapter.addMany(rowsAdapter.getInitialState(), [
   { rowId: "row-1", itemIds: [] },
   { rowId: "row-2", itemIds: [] },
+  { rowId: "row-3", itemIds: [] },
+  { rowId: "row-4", itemIds: [] },
 ]);
 
 export const { reducer, actions } = createSlice({
