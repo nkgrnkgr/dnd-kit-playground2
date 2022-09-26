@@ -1,5 +1,6 @@
 import { Box } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
+import { itemsSelector } from "../modules/itemsSlice";
 import { RootState } from "../modules/store";
 
 type TransparentProps = {
@@ -17,7 +18,7 @@ const Transparent: React.FC<TransparentProps> = ({
         w: width,
         h: height,
         backgroundColor: "white",
-        border: "1px dashed gray",
+        border: "2px dashed gray",
         opacity: 0.5,
       }}
     ></Box>
@@ -29,9 +30,12 @@ export const OverLayItem: React.FC = () => {
     (state: RootState) => state.page.activeElementProperty
   );
 
-  if (!id) {
-    return null;
-  }
+  const itemIds = useSelector(itemsSelector.selectIds).map((id) =>
+    id.toString()
+  );
 
-  return <Transparent height={height} width={width} />;
+  if (id && itemIds.includes(id)) {
+    return <Transparent height={height} width={width} />;
+  }
+  return null;
 };
