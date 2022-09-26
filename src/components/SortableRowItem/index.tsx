@@ -28,7 +28,7 @@ export const SortableRowItem: React.FC<Props> = ({ itemId, rowId }) => {
       <Flex gap={2}>
         {placeholderShown && <PlaceHolder />}
         <ItemComponent bgColor="blue.400" type={item.type}>
-          <Text color="white">{item.itemId}</Text>
+          <Text color="white">{item.type}</Text>
         </ItemComponent>
       </Flex>
     </SortableItem>

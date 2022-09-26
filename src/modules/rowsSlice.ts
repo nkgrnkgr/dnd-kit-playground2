@@ -3,8 +3,8 @@ import {
   createSlice,
   PayloadAction,
 } from "@reduxjs/toolkit";
+import { assertValue } from "../lib/asserts";
 
-import { v4 as uuid } from "uuid";
 import { RootState } from "./store";
 
 type Row = {
@@ -16,20 +16,21 @@ const rowsAdapter = createEntityAdapter<Row>({
   selectId: (row) => row.rowId,
 });
 
+const filledState = rowsAdapter.addMany(rowsAdapter.getInitialState(), [
+  { rowId: "row-1", itemIds: [] },
+  { rowId: "row-2", itemIds: [] },
+]);
+
 export const { reducer, actions } = createSlice({
   name: "rows",
-  initialState: rowsAdapter.getInitialState({
-    ids: ["row-1", "row-2"],
-    entities: [
-      { rowId: "row-1", itemIds: [] },
-      { rowId: "row-2", itemIds: [] },
-    ],
-  }),
+  initialState: filledState,
   reducers: {
-    addItemId(
-      state,
-      action: PayloadAction<{ rowId: string; itemId: string }>
-    ) {},
+    addItemId(state, action: PayloadAction<{ rowId: string; itemId: string }>) {
+      const { rowId, itemId } = action.payload;
+      const row = state.entities[rowId];
+      assertValue(row);
+      row.itemIds.push(itemId);
+    },
   },
 });
 

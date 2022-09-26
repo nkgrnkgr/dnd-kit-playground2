@@ -3,7 +3,6 @@ import {
   createSlice,
   PayloadAction,
 } from "@reduxjs/toolkit";
-import { v4 as uuid } from "uuid";
 import { RootState } from "./store";
 
 export const ITEM_TYPE = {
@@ -28,12 +27,8 @@ export const { reducer, actions } = createSlice({
   name: "items",
   initialState: itemsAdapter.getInitialState(),
   reducers: {
-    addItem(state, action: PayloadAction<Omit<Item, "itemId">>) {
-      const value = action.payload;
-      itemsAdapter.addOne(state, {
-        itemId: uuid(),
-        ...value,
-      });
+    addItem(state, action: PayloadAction<Item>) {
+      itemsAdapter.addOne(state, action.payload);
     },
   },
 });

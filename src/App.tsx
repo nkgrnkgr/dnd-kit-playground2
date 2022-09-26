@@ -2,7 +2,6 @@ import { Flex } from "@chakra-ui/react";
 import {
   DndContext,
   DragEndEvent,
-  DragOverEvent,
   DragOverlay,
   DragStartEvent,
 } from "@dnd-kit/core";
@@ -13,15 +12,22 @@ import { OverLayItem } from "./components/OverlayItem";
 import { ITEM_HIGHT } from "./components/ui/Item";
 import { createContentId, extractIds } from "./lib/id";
 import { insertToArray } from "./lib/insertToArray";
-import { ItemType } from "./modules/itemsSlice";
+import {
+  actions as itemsActions,
+  itemsSelector,
+  ItemType,
+} from "./modules/itemsSlice";
+import { actions as rowsActions } from "./modules/rowsSlice";
 import { actions } from "./modules/pageSlice";
-import { RootState, useRootDispatch } from "./modules/store";
+import { useRootDispatch } from "./modules/store";
 import { Result } from "./Result";
 import { SideBar } from "./Sidebar";
 import { LineContent } from "./store/line";
+import { v4 as uuid } from "uuid";
 
 export const App: React.FC = () => {
   const dispatch = useRootDispatch();
+  const itemIds = useSelector(itemsSelector.selectIds);
 
   const handleDragStart = (event: DragStartEvent) => {
     // @ts-ignore-next-line
@@ -34,12 +40,36 @@ export const App: React.FC = () => {
       })
     );
   };
-  const activeId = useSelector(
-    (state: RootState) => state.page.activeElementProperty.id
-  );
 
   const handleDragEnd = (event: DragEndEvent) => {
-    console.log("over", event.over?.data);
+    // @ts-ignore
+    if (event.active && event.over && event.over.data.current.rowId) {
+      const activeId = event.active.id;
+      // @ts-ignore
+      const targetRowId = event.over.data.current.rowId as string;
+
+      // insert
+      if (
+        itemIds.find((itemId) => itemId === activeId.toString()) === undefined
+      ) {
+        // @ts-ignore
+        const type = event.active.data.current.type as ItemType;
+        const newId = uuid();
+        dispatch(
+          itemsActions.addItem({
+            itemId: newId,
+            isPlaceHolder: false,
+            type,
+          })
+        );
+        dispatch(
+          rowsActions.addItemId({
+            rowId: targetRowId,
+            itemId: newId,
+          })
+        );
+      }
+    }
   };
 
   return (
@@ -50,8 +80,7 @@ export const App: React.FC = () => {
         <Result />
       </Flex>
       <DragOverlay>
-        {/* 追加 or ソート？ */}
-        {activeId ? <OverLayItem /> : null}
+        <OverLayItem />
       </DragOverlay>
     </DndContext>
   );

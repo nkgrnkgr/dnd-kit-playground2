@@ -26,9 +26,13 @@ const Transparent: React.FC<TransparentProps> = ({
 };
 
 export const OverLayItem: React.FC = () => {
-  const { height, width } = useSelector(
+  const { id, height, width } = useSelector(
     (state: RootState) => state.page.activeElementProperty
   );
+
+  if (!id) {
+    return null;
+  }
 
   return (
     <SortableItem itemId={"overlay"} rowId={"none"}>
