@@ -16,7 +16,6 @@ export type ItemType = TypeOfValues<typeof ITEM_TYPE>;
 export type Item = {
   itemId: string;
   type: ItemType;
-  isPlaceHolder: boolean;
 };
 
 const itemsAdapter = createEntityAdapter<Item>({

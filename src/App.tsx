@@ -46,26 +46,44 @@ export const App: React.FC = () => {
     if (event.active && event.over && event.over.data.current.rowId) {
       const activeId = event.active.id;
       // @ts-ignore
-      const targetRowId = event.over.data.current.rowId as string;
+      const activeItemType = event.active.data.current.type as ItemType;
+      // @ts-ignore
+      const overRowId = event.over.data.current.rowId as string;
 
       // insert
-      if (
-        itemIds.find((itemId) => itemId === activeId.toString()) === undefined
-      ) {
+      if (itemIds.find((itemId) => itemId === activeId) === undefined) {
         // @ts-ignore
-        const type = event.active.data.current.type as ItemType;
         const newId = uuid();
         dispatch(
           itemsActions.addItem({
             itemId: newId,
-            isPlaceHolder: false,
-            type,
+            type: activeItemType,
           })
         );
         dispatch(
           rowsActions.addItemId({
-            rowId: targetRowId,
+            rowId: overRowId,
             itemId: newId,
+          })
+        );
+        return;
+      }
+
+      // Move
+      // @ts-ignore
+      const activeRowId = event.active.data.current.rowId as string;
+      // move to Another Row
+      if (activeRowId !== overRowId) {
+        dispatch(
+          rowsActions.removeItemId({
+            rowId: activeRowId,
+            itemId: activeId.toString(),
+          })
+        );
+        dispatch(
+          rowsActions.addItemId({
+            rowId: overRowId,
+            itemId: activeId.toString(),
           })
         );
       }

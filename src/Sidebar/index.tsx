@@ -6,17 +6,14 @@ import { SidebarItem } from "./SidebarItem";
 export const SIDEBAR_ITEMS: Item[] = [
   {
     itemId: "1",
-    isPlaceHolder: false,
     type: ITEM_TYPE.SMALL,
   },
   {
     itemId: "2",
-    isPlaceHolder: false,
     type: ITEM_TYPE.MIDDLE,
   },
   {
     itemId: "3",
-    isPlaceHolder: false,
     type: ITEM_TYPE.LARGE,
   },
 ];

@@ -31,6 +31,15 @@ export const { reducer, actions } = createSlice({
       assertValue(row);
       row.itemIds.push(itemId);
     },
+    removeItemId(
+      state,
+      action: PayloadAction<{ rowId: string; itemId: string }>
+    ) {
+      const { rowId, itemId } = action.payload;
+      const row = state.entities[rowId];
+      assertValue(row);
+      row.itemIds = row.itemIds.filter((id) => id !== itemId);
+    },
   },
 });
 
