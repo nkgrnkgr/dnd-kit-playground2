@@ -29,6 +29,23 @@ export const { reducer, actions } = createSlice({
   name: "rows",
   initialState: filledState,
   reducers: {
+    sortRow(
+      state,
+      action: PayloadAction<{
+        activeRowId: string;
+        overRowId: string;
+      }>
+    ) {
+      const activeRowIndex = state.ids.findIndex(
+        (id) => id.toString() === action.payload.activeRowId
+      );
+      const overRowIndex = state.ids.findIndex(
+        (id) => id.toString() === action.payload.overRowId
+      );
+
+      const ids = arrayMove(state.ids, activeRowIndex, overRowIndex);
+      state.ids = ids;
+    },
     addItemId(state, action: PayloadAction<{ rowId: string; itemId: string }>) {
       const { rowId, itemId } = action.payload;
       const row = state.entities[rowId];

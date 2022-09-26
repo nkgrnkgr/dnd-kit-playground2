@@ -17,13 +17,14 @@ import {
   ItemType,
 } from "../modules/itemsSlice";
 import { actions } from "../modules/pageSlice";
-import { actions as rowsActions } from "../modules/rowsSlice";
+import { actions as rowsActions, rowsSelector } from "../modules/rowsSlice";
 import { useRootDispatch } from "../modules/store";
 import { Result } from "./Result";
 
 export const Page: React.FC = () => {
   const dispatch = useRootDispatch();
   const itemIds = useSelector(itemsSelector.selectIds);
+  const rowIds = useSelector(rowsSelector.selectIds);
 
   const handleDragStart = (event: DragStartEvent) => {
     // @ts-ignore-next-line
@@ -38,57 +39,76 @@ export const Page: React.FC = () => {
   };
 
   const handleDragEnd = (event: DragEndEvent) => {
-    // @ts-ignore
-    if (event.active && event.over && event.over.data.current.rowId) {
+    if (event.active && event.over) {
+      // 行の移動
+      if (rowIds.includes(event.active.id.toString())) {
+        dispatch(
+          rowsActions.sortRow({
+            activeRowId: event.active.id.toString(),
+            overRowId: event.over.id.toString(),
+          })
+        );
+
+        return;
+      }
+
       const activeId = event.active.id;
       // @ts-ignore
       const activeItemType = event.active.data.current.type as ItemType;
       // @ts-ignore
       const overRowId = event.over.data.current.rowId as string;
 
-      // insert
-      if (itemIds.find((itemId) => itemId === activeId) === undefined) {
-        // @ts-ignore
-        const newId = uuid();
-        dispatch(
-          itemsActions.addItem({
-            itemId: newId,
-            type: activeItemType,
-          })
-        );
-        dispatch(
-          rowsActions.addItemId({
-            rowId: overRowId,
-            itemId: newId,
-          })
-        );
-        return;
-      }
-
       // @ts-ignore
       const activeRowId = event.active.data.current.rowId as string;
-      // sort
-      if (activeRowId === overRowId) {
-        dispatch(
-          rowsActions.sortItem({
-            rowId: activeRowId,
-            activeItemId: activeId.toString(),
-            overItemId: event.over.id.toString(),
-          })
-        );
+
+      /**
+       * アイテムの移動
+       */
+      if (itemIds.includes(event.active.id.toString())) {
+        // アイテムのソート
+        if (activeRowId === overRowId) {
+          dispatch(
+            rowsActions.sortItem({
+              rowId: activeRowId,
+              activeItemId: activeId.toString(),
+              overItemId: event.over.id.toString(),
+            })
+          );
+        }
+
+        // move to other Row
+        if (activeRowId !== overRowId) {
+          dispatch(
+            rowsActions.moveItemId({
+              activeItemId: activeId.toString(),
+              activeRowId: activeRowId,
+              overItemId: event.over.id.toString(),
+              overRowId: overRowId,
+            })
+          );
+        }
+        return;
+      }
+      /**
+       * サイドバーからのインサート
+       */
+      if (!overRowId) {
+        return null;
       }
 
-      // move to other Row
-      if (activeRowId !== overRowId) {
-        dispatch(
-          rowsActions.moveItemId({
-            activeItemId: activeId.toString(),
-            activeRowId: activeRowId,
-            overItemId: event.over.id.toString(),
-            overRowId: overRowId,
-          })
-        );
-      }
+      const newId = uuid();
+      dispatch(
+        itemsActions.addItem({
+          itemId: newId,
+          type: activeItemType,
+        })
+      );
+      dispatch(
+        rowsActions.addItemId({
+          rowId: overRowId,
+          itemId: newId,
+        })
+      );
     }
   };
 
