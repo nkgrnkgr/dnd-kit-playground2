@@ -80,18 +80,14 @@ export const App: React.FC = () => {
 
       // move to other Row
       if (activeRowId !== overRowId) {
-        // dispatch(
-        //   rowsActions.removeItemId({
-        //     rowId: activeRowId,
-        //     itemId: activeId.toString(),
-        //   })
-        // );
-        // dispatch(
-        //   rowsActions.addItemId({
-        //     rowId: overRowId,
-        //     itemId: activeId.toString(),
-        //   })
-        // );
+        dispatch(
+          rowsActions.moveItemId({
+            activeItemId: activeId.toString(),
+            activeRowId: activeRowId,
+            overItemId: event.over.id.toString(),
+            overRowId: overRowId,
+          })
+        );
       }
     }
   };

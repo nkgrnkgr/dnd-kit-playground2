@@ -5,6 +5,7 @@ import {
   PayloadAction,
 } from "@reduxjs/toolkit";
 import { assertValue } from "../lib/asserts";
+import { insertToArray } from "../lib/insertToArray";
 
 import { RootState } from "./store";
 
@@ -48,14 +49,36 @@ export const { reducer, actions } = createSlice({
       const overIdIndex = itemIds.findIndex((id) => id === overItemId);
       row.itemIds = arrayMove(itemIds, activeIdIndex, overIdIndex);
     },
-    removeItemId(
+    moveItemId(
       state,
-      action: PayloadAction<{ rowId: string; itemId: string }>
+      action: PayloadAction<{
+        activeRowId: string;
+        activeItemId: string;
+        overRowId: string;
+        overItemId: string;
+      }>
     ) {
-      const { rowId, itemId } = action.payload;
-      const row = state.entities[rowId];
-      assertValue(row);
-      row.itemIds = row.itemIds.filter((id) => id !== itemId);
+      const { activeItemId, activeRowId, overRowId, overItemId } =
+        action.payload;
+      const activeRow = state.entities[activeRowId];
+      assertValue(activeRow);
+
+      // remove
+      activeRow.itemIds = activeRow.itemIds.filter((id) => id !== activeItemId);
+
+      // insert
+      const overRow = state.entities[overRowId];
+      assertValue(overRow);
+      const overItemIndex = overRow.itemIds.findIndex(
+        (id) => id === overItemId
+      );
+      console.log(action.payload.overItemId, overItemIndex);
+      const newArray = insertToArray(
+        overRow.itemIds,
+        activeItemId,
+        overItemIndex
+      );
+      overRow.itemIds = newArray;
     },
   },
 });
