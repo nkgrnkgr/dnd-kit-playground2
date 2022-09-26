@@ -21,7 +21,7 @@ import { actions as rowsActions } from "./modules/rowsSlice";
 import { actions } from "./modules/pageSlice";
 import { useRootDispatch } from "./modules/store";
 import { Result } from "./Result";
-import { SideBar } from "./Sidebar";
+import { SideBar } from "./components/Sidebar";
 import { LineContent } from "./store/line";
 import { v4 as uuid } from "uuid";
 

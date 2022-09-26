@@ -1,8 +1,8 @@
 import { Icon, Text } from "@chakra-ui/react";
 import { RiDragMove2Fill } from "react-icons/ri";
-import { ItemComponent } from "../components/ui/Item";
+import { ItemComponent } from "../../components/ui/Item";
+import { Item as ContentItem } from "../../modules/itemsSlice";
 import { Draggable } from "../dnd/Draggable";
-import { Item as ContentItem } from "../modules/itemsSlice";
 
 type Props = {
   item: ContentItem;

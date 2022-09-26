@@ -1,6 +1,6 @@
 import { Flex, Text } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
-import { SortableItem } from "../../dnd/SortableItem";
+import { SortableItem } from "../dnd/SortableItem";
 import { itemsSelector } from "../../modules/itemsSlice";
 import { RootState } from "../../modules/store";
 import { PlaceHolder } from "../PlaceHolder";

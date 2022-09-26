@@ -1,6 +1,6 @@
 import { useDraggable } from "@dnd-kit/core";
 import React from "react";
-import { Item } from "../modules/itemsSlice";
+import { Item } from "../../modules/itemsSlice";
 
 type Props = {
   children: React.ReactNode;
