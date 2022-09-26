@@ -1,6 +1,6 @@
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { ItemType } from "../../modules/itemsSlice";
+import { ItemType } from "../../../modules/itemsSlice";
 
 type Props = {
   itemId: string;

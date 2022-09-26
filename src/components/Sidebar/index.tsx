@@ -1,5 +1,5 @@
 import { Box } from "@chakra-ui/react";
-import { Card } from "../../components/ui/Card";
+import { Card } from "../../components/helper/Card";
 import { Item, ITEM_TYPE } from "../../modules/itemsSlice";
 import { SidebarItem } from "./SidebarItem";
 
