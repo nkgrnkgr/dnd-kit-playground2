@@ -1,5 +1,8 @@
 import { Box, VStack } from "@chakra-ui/react";
-import { SortableContext } from "@dnd-kit/sortable";
+import {
+  SortableContext,
+  verticalListSortingStrategy,
+} from "@dnd-kit/sortable";
 import { useSelector } from "react-redux";
 import { rowsSelector } from "../../modules/rowsSlice";
 import { Row } from "./Row";
@@ -17,7 +20,7 @@ export const Form = () => {
       }}
     >
       <VStack spacing="12px">
-        <SortableContext items={rowIds}>
+        <SortableContext items={rowIds} strategy={verticalListSortingStrategy}>
           {rowIds.map((rowId) => (
             <Row key={rowId} rowId={rowId.toString()} />
           ))}
