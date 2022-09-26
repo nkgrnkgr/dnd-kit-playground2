@@ -72,7 +72,6 @@ export const { reducer, actions } = createSlice({
       const overItemIndex = overRow.itemIds.findIndex(
         (id) => id === overItemId
       );
-      console.log(action.payload.overItemId, overItemIndex);
       const newArray = insertToArray(
         overRow.itemIds,
         activeItemId,
