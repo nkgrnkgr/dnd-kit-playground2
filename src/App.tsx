@@ -69,23 +69,33 @@ export const App: React.FC = () => {
         return;
       }
 
-      // Move
       // @ts-ignore
       const activeRowId = event.active.data.current.rowId as string;
-      // move to Another Row
-      if (activeRowId !== overRowId) {
+      // sort
+      if (activeRowId === overRowId) {
         dispatch(
-          rowsActions.removeItemId({
+          rowsActions.sortItem({
             rowId: activeRowId,
-            itemId: activeId.toString(),
+            activeItemId: activeId.toString(),
+            overItemId: event.over.id.toString(),
           })
         );
-        dispatch(
-          rowsActions.addItemId({
-            rowId: overRowId,
-            itemId: activeId.toString(),
-          })
-        );
+      }
+
+      // move to other Row
+      if (activeRowId !== overRowId) {
+        // dispatch(
+        //   rowsActions.removeItemId({
+        //     rowId: activeRowId,
+        //     itemId: activeId.toString(),
+        //   })
+        // );
+        // dispatch(
+        //   rowsActions.addItemId({
+        //     rowId: overRowId,
+        //     itemId: activeId.toString(),
+        //   })
+        // );
       }
     }
   };

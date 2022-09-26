@@ -1,3 +1,4 @@
+import { arrayMove } from "@dnd-kit/sortable";
 import {
   createEntityAdapter,
   createSlice,
@@ -30,6 +31,22 @@ export const { reducer, actions } = createSlice({
       const row = state.entities[rowId];
       assertValue(row);
       row.itemIds.push(itemId);
+    },
+    sortItem(
+      state,
+      action: PayloadAction<{
+        rowId: string;
+        activeItemId: string;
+        overItemId: string;
+      }>
+    ) {
+      const { rowId, activeItemId, overItemId } = action.payload;
+      const row = state.entities[rowId];
+      assertValue(row);
+      const { itemIds } = row;
+      const activeIdIndex = itemIds.findIndex((id) => id === activeItemId);
+      const overIdIndex = itemIds.findIndex((id) => id === overItemId);
+      row.itemIds = arrayMove(itemIds, activeIdIndex, overIdIndex);
     },
     removeItemId(
       state,

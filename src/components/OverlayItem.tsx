@@ -34,9 +34,5 @@ export const OverLayItem: React.FC = () => {
     return null;
   }
 
-  return (
-    <SortableItem itemId={"overlay"} rowId={"none"}>
-      <Transparent height={height} width={width} />
-    </SortableItem>
-  );
+  return <Transparent height={height} width={width} />;
 };

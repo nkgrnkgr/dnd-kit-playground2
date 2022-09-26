@@ -1,18 +1,26 @@
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+import { ItemType } from "../modules/itemsSlice";
 
 type Props = {
   itemId: string;
   rowId: string;
+  type: ItemType;
   children: React.ReactNode;
 };
 
-export const SortableItem: React.FC<Props> = ({ itemId, rowId, children }) => {
+export const SortableItem: React.FC<Props> = ({
+  itemId,
+  rowId,
+  type,
+  children,
+}) => {
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({
       id: `${itemId}`,
       data: {
         rowId,
+        type,
       },
     });
 

@@ -9,9 +9,18 @@ export const Result: React.FC = () => {
   const items = useSelector((state: RootState) =>
     itemsSelector.selectAll(state)
   );
+  const { activeElementProperty } = useSelector(
+    (state: RootState) => state.page
+  );
 
   return (
-    <Box>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        gap: 2,
+      }}
+    >
       <Text>Items</Text>
       <pre>
         <Code>{JSON.stringify(items, null, 2)}</Code>
@@ -19,6 +28,10 @@ export const Result: React.FC = () => {
       <Text>Rows</Text>
       <pre>
         <Code>{JSON.stringify(rows, null, 2)}</Code>
+      </pre>
+      <Text>ActiveElementProperty</Text>
+      <pre>
+        <Code>{JSON.stringify(activeElementProperty, null, 2)}</Code>
       </pre>
     </Box>
   );
