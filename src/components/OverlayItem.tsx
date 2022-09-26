@@ -25,17 +25,13 @@ const Transparent: React.FC<TransparentProps> = ({
   );
 };
 
-type Props = {
-  itemId: string;
-};
-
-export const OverLayItem: React.FC<Props> = ({ itemId }) => {
+export const OverLayItem: React.FC = () => {
   const { height, width } = useSelector(
     (state: RootState) => state.page.activeElementProperty
   );
 
   return (
-    <SortableItem itemId={itemId}>
+    <SortableItem itemId={"overlay"} rowId={"none"}>
       <Transparent height={height} width={width} />
     </SortableItem>
   );

@@ -25,7 +25,7 @@ export const Row: React.FC<Props> = ({ rowId }) => {
       }}
     >
       <SortableContext items={itemIds}>
-        <Droppable droppableId={rowId}>
+        <Droppable droppableId={rowId} rowId={rowId}>
           <Flex
             sx={{
               mt: "12px",
@@ -33,9 +33,9 @@ export const Row: React.FC<Props> = ({ rowId }) => {
             gap={2}
           >
             {itemIds.map((id) => (
-              <SortableRowItem key={id} itemId={id} />
+              <SortableRowItem key={id} itemId={id} rowId={rowId} />
             ))}
-            <Empty itemId={`${rowId}-empty`} />
+            <Empty itemId={`${rowId}-empty`} rowId={rowId} />
           </Flex>
         </Droppable>
       </SortableContext>

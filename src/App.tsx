@@ -21,7 +21,6 @@ import { SideBar } from "./Sidebar";
 import { LineContent } from "./store/line";
 
 export const App: React.FC = () => {
-  const handleDragEnd = (event: DragEndEvent) => {};
   const dispatch = useRootDispatch();
 
   const handleDragStart = (event: DragStartEvent) => {
@@ -39,6 +38,10 @@ export const App: React.FC = () => {
     (state: RootState) => state.page.activeElementProperty.id
   );
 
+  const handleDragEnd = (event: DragEndEvent) => {
+    console.log("over", event.over?.data);
+  };
+
   return (
     <DndContext onDragEnd={handleDragEnd} onDragStart={handleDragStart}>
       <Flex gap="12">
@@ -48,7 +51,7 @@ export const App: React.FC = () => {
       </Flex>
       <DragOverlay>
         {/* 追加 or ソート？ */}
-        {activeId ? <OverLayItem itemId={activeId} /> : null}
+        {activeId ? <OverLayItem /> : null}
       </DragOverlay>
     </DndContext>
   );

@@ -19,10 +19,10 @@ const rowsAdapter = createEntityAdapter<Row>({
 export const { reducer, actions } = createSlice({
   name: "rows",
   initialState: rowsAdapter.getInitialState({
-    ids: ["1", "2"],
+    ids: ["row-1", "row-2"],
     entities: [
-      { rowId: "1", itemIds: [] },
-      { rowId: "2", itemIds: [] },
+      { rowId: "row-1", itemIds: [] },
+      { rowId: "row-2", itemIds: [] },
     ],
   }),
   reducers: {

@@ -8,9 +8,10 @@ import { ItemComponent } from "../ui/Item";
 
 type Props = {
   itemId: string;
+  rowId: string;
 };
 
-export const SortableRowItem: React.FC<Props> = ({ itemId }) => {
+export const SortableRowItem: React.FC<Props> = ({ itemId, rowId }) => {
   // overのIdと一致したとき
   const placeholderShown = false;
 
@@ -23,7 +24,7 @@ export const SortableRowItem: React.FC<Props> = ({ itemId }) => {
   }
 
   return (
-    <SortableItem itemId={itemId}>
+    <SortableItem itemId={itemId} rowId={rowId}>
       <Flex gap={2}>
         {placeholderShown && <PlaceHolder />}
         <ItemComponent bgColor="blue.400" type={item.type}>
