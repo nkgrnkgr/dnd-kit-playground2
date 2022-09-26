@@ -1,6 +1,6 @@
 import { Center, Text } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
-import { RootState } from "../modules/store";
+import { RootState } from "../../../modules/store";
 
 type Props = {
   height?: string | undefined;
