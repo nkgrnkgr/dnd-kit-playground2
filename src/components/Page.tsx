@@ -10,7 +10,7 @@ import { v4 as uuid } from "uuid";
 import { Form } from "./Form";
 import { OverLayItem } from "./OverlayItem";
 import { SideBar } from "./Sidebar";
-import { ITEM_HIGHT } from "./helper/Item";
+import { DEFAULT_WIDTH, ITEM_HIGHT } from "./helper/Item";
 import {
   actions as itemsActions,
   itemsSelector,
@@ -101,6 +101,7 @@ export const Page: React.FC = () => {
         itemsActions.addItem({
           itemId: newId,
           type: activeItemType,
+          width: DEFAULT_WIDTH,
         })
       );
       dispatch(

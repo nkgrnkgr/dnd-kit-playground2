@@ -1,6 +1,6 @@
 import { Icon, Text } from "@chakra-ui/react";
 import { RiDragMove2Fill } from "react-icons/ri";
-import { ItemComponent } from "../../components/helper/Item";
+import { DEFAULT_WIDTH, ItemComponent } from "../../components/helper/Item";
 import { Item as ContentItem } from "../../modules/itemsSlice";
 import { Draggable } from "../helper/dnd/Draggable";
 
@@ -11,7 +11,7 @@ type Props = {
 export const SidebarItem: React.FC<Props> = ({ item }) => {
   return (
     <Draggable itemId={item.itemId} type={item.type}>
-      <ItemComponent bgColor="tomato" type={item.type}>
+      <ItemComponent bgColor="tomato" type={item.type} width={DEFAULT_WIDTH}>
         <Icon
           sx={{
             mr: "4px",

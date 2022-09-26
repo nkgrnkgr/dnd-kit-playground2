@@ -5,6 +5,7 @@ type Props = {
   children: React.ReactNode;
   bgColor: string;
   type: Item["type"];
+  width: string;
 };
 
 export const ITEM_HIGHT: Record<ItemType, string> = {
@@ -13,9 +14,16 @@ export const ITEM_HIGHT: Record<ItemType, string> = {
   [ITEM_TYPE.LARGE]: "168px",
 };
 
-export const ItemComponent: React.FC<Props> = ({ children, bgColor, type }) => {
+export const DEFAULT_WIDTH = "200px";
+
+export const ItemComponent: React.FC<Props> = ({
+  children,
+  bgColor,
+  type,
+  width,
+}) => {
   return (
-    <Center h={ITEM_HIGHT[type]} p="4" w="200px" bg={bgColor}>
+    <Center h={ITEM_HIGHT[type]} p="4" w={width} bg={bgColor}>
       {children}
     </Center>
   );

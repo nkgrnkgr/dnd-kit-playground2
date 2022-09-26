@@ -28,7 +28,7 @@ const Component: React.FC<ComponentProps> = ({ item }) => {
   return (
     <Flex gap={2}>
       {placeholderShown && <PlaceHolder />}
-      <ItemComponent bgColor="blue.400" type={item.type}>
+      <ItemComponent bgColor="blue.400" type={item.type} width={item.width}>
         <Text color="white">{item.type}</Text>
       </ItemComponent>
     </Flex>
