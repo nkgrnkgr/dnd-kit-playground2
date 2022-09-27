@@ -37,7 +37,12 @@ export const DraggableRow: React.FC<Props> = ({ rowId, children }) => {
       style={style}
     >
       <SortableContext items={itemIds}>
-        <Droppable droppableId={rowId} rowId={rowId}>
+        <Droppable
+          id={rowId}
+          data={{
+            rowId,
+          }}
+        >
           <Flex
             sx={{
               display: "flex",

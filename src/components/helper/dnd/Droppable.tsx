@@ -3,22 +3,15 @@ import { useDroppable } from "@dnd-kit/core";
 
 type Props = {
   children: React.ReactNode;
-  droppableId: string;
-  rowId: string;
   style?: React.CSSProperties;
+  id: string;
+  data?: Record<string, unknown>;
 };
 
-export const Droppable: React.FC<Props> = ({
-  children,
-  droppableId,
-  rowId,
-  style,
-}) => {
+export const Droppable: React.FC<Props> = ({ children, style, id, data }) => {
   const { setNodeRef } = useDroppable({
-    id: droppableId,
-    data: {
-      rowId,
-    },
+    id,
+    data,
   });
 
   return (
