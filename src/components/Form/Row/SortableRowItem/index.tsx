@@ -32,27 +32,29 @@ const usePlaceholderShown = (itemId: string) => {
 const Component: React.FC<ComponentProps> = ({ item }) => {
   // overのIdと一致したとき
   const placeholderShown = usePlaceholderShown(item.itemId);
-  const [current, setCurrent] = useState(Number(item.width));
   const dispatch = useRootDispatch();
 
   const handleDragEnd = (e: DragEndEvent) => {
-    dispatch(
-      actions.changeWidth({
-        itemId: item.itemId,
-        width: (current + e.delta.x).toString(),
-      })
-    );
+    // dispatch(
+    //   actions.changeWidth({
+    //     itemId: item.itemId,
+    //     width: (item + e.delta.x).toString(),
+    //   })
+    // );
   };
-  const handleDragMove = (e: DragMoveEvent) => {
-    setCurrent(Number(item.width) + e.delta.x);
-  };
+  const handleDragMove = (e: DragMoveEvent) => {};
 
   return (
-    <Flex alignItems="center">
+    <Flex
+      sx={{
+        position: "relative",
+      }}
+      alignItems="center"
+    >
       {placeholderShown && <PlaceHolder />}
       <Center
         backgroundColor="blue.400"
-        width={`${current}px`}
+        width={`${item.width}px`}
         height={`${ITEM_HIGHT[item.type]}px`}
       >
         <Text
@@ -64,12 +66,20 @@ const Component: React.FC<ComponentProps> = ({ item }) => {
           {item.type}
         </Text>
       </Center>
-      <WidthExtender
-        id={item.itemId}
-        height={`${ITEM_HIGHT[item.type]}px`}
-        handleDragEnd={handleDragEnd}
-        handleDragMove={handleDragMove}
-      />
+      <Box
+        sx={{
+          position: "absolute",
+          top: 0,
+          left: "160px",
+        }}
+      >
+        <WidthExtender
+          id={item.itemId}
+          height={`${ITEM_HIGHT[item.type]}px`}
+          handleDragEnd={handleDragEnd}
+          handleDragMove={handleDragMove}
+        />
+      </Box>
     </Flex>
   );
 };
