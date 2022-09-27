@@ -16,7 +16,7 @@ import {
 } from "../modules/itemsSlice";
 import { actions } from "../modules/pageSlice";
 import { actions as rowsActions, rowsSelector } from "../modules/rowsSlice";
-import { RootState, useRootDispatch } from "../modules/store";
+import { useRootDispatch } from "../modules/store";
 import { Form } from "./Form";
 import { OverLayItem } from "./OverlayItem";
 import { Result } from "./Result";
