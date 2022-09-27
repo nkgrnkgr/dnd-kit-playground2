@@ -11,6 +11,7 @@ import {
 } from "@dnd-kit/core";
 import {
   arrayMove,
+  horizontalListSortingStrategy,
   SortableContext,
   sortableKeyboardCoordinates,
 } from "@dnd-kit/sortable";
@@ -44,12 +45,12 @@ const ITEMS: ItemContent[] = [
   {
     id: "1",
     width: 200,
-    height: 200,
+    height: 300,
   },
   {
     id: "2",
     width: 300,
-    height: 200,
+    height: 100,
   },
   {
     id: "3",
@@ -59,10 +60,9 @@ const ITEMS: ItemContent[] = [
   {
     id: "4",
     width: 400,
-    height: 200,
+    height: 400,
   },
 ];
-
 export const App: React.FC = () => {
   const [items, setItems] = useState(ITEMS);
   const [activeItem, setActiveItem] = useState<ItemContent | null>(null);
@@ -112,7 +112,10 @@ export const App: React.FC = () => {
             gap: 3,
           }}
         >
-          <SortableContext items={items.map((item) => item.id)}>
+          <SortableContext
+            strategy={horizontalListSortingStrategy}
+            items={items.map((item) => item.id)}
+          >
             {items.map((item) => (
               <Item
                 key={item.id}
@@ -123,11 +126,17 @@ export const App: React.FC = () => {
             ))}
             <DragOverlay>
               {activeItem && (
-                <Item
-                  id={activeItem.id}
-                  width={activeItem.width}
-                  height={activeItem.height}
-                />
+                <Box
+                  sx={{
+                    opacity: "0.8",
+                  }}
+                >
+                  <Item
+                    id={activeItem.id}
+                    width={activeItem.width}
+                    height={activeItem.height}
+                  />
+                </Box>
               )}
             </DragOverlay>
           </SortableContext>

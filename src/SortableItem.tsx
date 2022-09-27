@@ -19,6 +19,7 @@ export function SortableItem({
     transform: CSS.Transform.toString(transform),
     transition,
   };
+  console.log(style);
 
   return (
     <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
