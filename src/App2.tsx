@@ -16,8 +16,8 @@ import {
   sortableKeyboardCoordinates,
 } from "@dnd-kit/sortable";
 import React, { useState } from "react";
+import { Sortable } from "./components/helper/dnd/Sortable";
 import { assertValue } from "./lib/asserts";
-import { SortableItem } from "./SortableItem";
 
 type ItemProps = {
   id: string;
@@ -27,11 +27,11 @@ type ItemProps = {
 
 const Item: React.FC<ItemProps> = ({ id, width, height }) => {
   return (
-    <SortableItem id={id}>
+    <Sortable id={id} data={{}}>
       <Center bgColor={"tomato"} width={width} height={height}>
         {id}
       </Center>
-    </SortableItem>
+    </Sortable>
   );
 };
 
