@@ -1,4 +1,4 @@
-import { Flex, Text } from "@chakra-ui/react";
+import { Box, Center, Flex, Text } from "@chakra-ui/react";
 import { useSortable } from "@dnd-kit/sortable";
 import { useSelector } from "react-redux";
 import {
@@ -9,7 +9,6 @@ import {
 import { RootState } from "../../../../modules/store";
 import { CenterComponent } from "../../../helper/Center";
 import { Sortable } from "../../../helper/dnd/Sortable";
-import { SortableItem } from "../../../helper/dnd/SortableItem";
 import { PlaceHolder } from "../PlaceHolder";
 import { WidthExtender } from "./WidthExtender";
 
@@ -27,11 +26,6 @@ const usePlaceholderShown = (itemId: string) => {
   return isOver && over?.data.current.rowId !== active?.data.current.rowId;
 };
 
-type Delta = {
-  x: number;
-  y: number;
-};
-
 const Component: React.FC<ComponentProps> = ({ item }) => {
   // overのIdと一致したとき
   const placeholderShown = usePlaceholderShown(item.itemId);
@@ -41,12 +35,11 @@ const Component: React.FC<ComponentProps> = ({ item }) => {
       {placeholderShown && <PlaceHolder />}
       <CenterComponent
         backgroundColor="blue.400"
+        width={`${item.width}px`}
         height={ITEM_HIGHT[item.type]}
-        width={item.width}
       >
         <Text
           sx={{
-            flex: 1,
             textAlign: "center",
           }}
           color="white"
@@ -54,7 +47,11 @@ const Component: React.FC<ComponentProps> = ({ item }) => {
           {item.type}
         </Text>
       </CenterComponent>
-      <WidthExtender id={item.itemId} height={ITEM_HIGHT[item.type]} />
+      <WidthExtender
+        itemWidth={item.width}
+        id={item.itemId}
+        height={ITEM_HIGHT[item.type]}
+      />
     </Flex>
   );
 };

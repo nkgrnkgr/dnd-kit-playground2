@@ -102,7 +102,7 @@ export const Page: React.FC = () => {
         itemsActions.addItem({
           itemId: newId,
           type: activeItemType,
-          width: DEFAULT_WIDTH,
+          width: DEFAULT_WIDTH.toString(),
         })
       );
       dispatch(

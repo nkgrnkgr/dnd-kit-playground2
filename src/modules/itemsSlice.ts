@@ -24,7 +24,7 @@ export const ITEM_HIGHT: Record<ItemType, string> = {
   [ITEM_TYPE.LARGE]: "168px",
 };
 
-export const DEFAULT_WIDTH = "200px";
+export const DEFAULT_WIDTH = 200;
 
 const itemsAdapter = createEntityAdapter<Item>({
   selectId: (item) => item.itemId,

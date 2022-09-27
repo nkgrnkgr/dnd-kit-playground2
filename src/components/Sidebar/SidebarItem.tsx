@@ -1,4 +1,4 @@
-import { Center, Icon, Text } from "@chakra-ui/react";
+import { Icon, Text } from "@chakra-ui/react";
 import { RiDragMove2Fill } from "react-icons/ri";
 import {
   DEFAULT_WIDTH,
@@ -22,7 +22,7 @@ export const SidebarItem: React.FC<Props> = ({ item }) => {
     >
       <CenterComponent
         backgroundColor="tomato"
-        width={DEFAULT_WIDTH}
+        width={`${DEFAULT_WIDTH}px`}
         height={ITEM_HIGHT[item.type]}
       >
         <Icon

@@ -7,17 +7,17 @@ export const SIDEBAR_ITEMS: Item[] = [
   {
     itemId: "1",
     type: ITEM_TYPE.SMALL,
-    width: DEFAULT_WIDTH,
+    width: DEFAULT_WIDTH.toString(),
   },
   {
     itemId: "2",
     type: ITEM_TYPE.MIDDLE,
-    width: DEFAULT_WIDTH,
+    width: DEFAULT_WIDTH.toString(),
   },
   {
     itemId: "3",
     type: ITEM_TYPE.LARGE,
-    width: DEFAULT_WIDTH,
+    width: DEFAULT_WIDTH.toString(),
   },
 ];
 
