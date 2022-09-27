@@ -1,19 +1,16 @@
 import { useDraggable } from "@dnd-kit/core";
 import React from "react";
-import { Item } from "../../../modules/itemsSlice";
 
 type Props = {
   children: React.ReactNode;
-  itemId: string;
-  type: Item["type"];
+  id: string;
+  data?: Record<string, unknown>;
 };
 
-export const Draggable: React.FC<Props> = ({ children, itemId, type }) => {
+export const Draggable: React.FC<Props> = ({ children, id, data }) => {
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
-    id: itemId,
-    data: {
-      type,
-    },
+    id,
+    data,
   });
   const style = transform
     ? {

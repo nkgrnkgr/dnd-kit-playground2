@@ -10,11 +10,12 @@ import { v4 as uuid } from "uuid";
 import { Form } from "./Form";
 import { OverLayItem } from "./OverlayItem";
 import { SideBar } from "./Sidebar";
-import { DEFAULT_WIDTH, ITEM_HIGHT } from "./helper/Item";
 import {
   actions as itemsActions,
+  DEFAULT_WIDTH,
   itemsSelector,
   ItemType,
+  ITEM_HIGHT,
 } from "../modules/itemsSlice";
 import { actions } from "../modules/pageSlice";
 import { actions as rowsActions, rowsSelector } from "../modules/rowsSlice";
@@ -28,7 +29,7 @@ export const Page: React.FC = () => {
 
   const handleDragStart = (event: DragStartEvent) => {
     // @ts-ignore-next-line
-    const type = event.active.data.current.type as ItemType;
+    const type = event.active.data.current.itemType as ItemType;
     dispatch(
       actions.setActiveElementProperty({
         id: event.active.id.toString(),
@@ -54,7 +55,7 @@ export const Page: React.FC = () => {
 
       const activeId = event.active.id;
       // @ts-ignore
-      const activeItemType = event.active.data.current.type as ItemType;
+      const activeItemType = event.active.data.current.itemType as ItemType;
       // @ts-ignore
       const overRowId = event.over.data.current.rowId as string;
 

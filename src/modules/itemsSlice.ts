@@ -3,7 +3,6 @@ import {
   createSlice,
   PayloadAction,
 } from "@reduxjs/toolkit";
-import { assertValue } from "../lib/asserts";
 import { RootState } from "./store";
 
 export const ITEM_TYPE = {
@@ -19,6 +18,13 @@ export type Item = {
   type: ItemType;
   width: string;
 };
+export const ITEM_HIGHT: Record<ItemType, string> = {
+  [ITEM_TYPE.SMALL]: "56px",
+  [ITEM_TYPE.MIDDLE]: "112px",
+  [ITEM_TYPE.LARGE]: "168px",
+};
+
+export const DEFAULT_WIDTH = "200px";
 
 const itemsAdapter = createEntityAdapter<Item>({
   selectId: (item) => item.itemId,

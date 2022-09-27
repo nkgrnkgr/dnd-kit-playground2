@@ -1,7 +1,6 @@
 import { Box } from "@chakra-ui/react";
 import { Card } from "../../components/helper/Card";
-import { Item, ITEM_TYPE } from "../../modules/itemsSlice";
-import { DEFAULT_WIDTH } from "../helper/Item";
+import { DEFAULT_WIDTH, Item, ITEM_TYPE } from "../../modules/itemsSlice";
 import { SidebarItem } from "./SidebarItem";
 
 export const SIDEBAR_ITEMS: Item[] = [
