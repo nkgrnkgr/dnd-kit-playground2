@@ -1,12 +1,15 @@
 import { Box, Center, Flex, Text } from "@chakra-ui/react";
+import { DragEndEvent, DragMoveEvent } from "@dnd-kit/core";
 import { useSortable } from "@dnd-kit/sortable";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import {
+  actions,
   Item,
   itemsSelector,
   ITEM_HIGHT,
 } from "../../../../modules/itemsSlice";
-import { RootState } from "../../../../modules/store";
+import { RootState, useRootDispatch } from "../../../../modules/store";
 import { CenterComponent } from "../../../helper/Center";
 import { Sortable } from "../../../helper/dnd/Sortable";
 import { PlaceHolder } from "../PlaceHolder";
@@ -29,13 +32,27 @@ const usePlaceholderShown = (itemId: string) => {
 const Component: React.FC<ComponentProps> = ({ item }) => {
   // overのIdと一致したとき
   const placeholderShown = usePlaceholderShown(item.itemId);
+  const [current, setCurrent] = useState(Number(item.width));
+  const dispatch = useRootDispatch();
+
+  const handleDragEnd = (e: DragEndEvent) => {
+    dispatch(
+      actions.changeWidth({
+        itemId: item.itemId,
+        width: current.toString(),
+      })
+    );
+  };
+  const handleDragMove = (e: DragMoveEvent) => {
+    console.log(e.delta.x);
+  };
 
   return (
     <Flex alignItems="center">
       {placeholderShown && <PlaceHolder />}
       <CenterComponent
         backgroundColor="blue.400"
-        width={`${item.width}px`}
+        width={`${current}px`}
         height={ITEM_HIGHT[item.type]}
       >
         <Text
@@ -48,9 +65,10 @@ const Component: React.FC<ComponentProps> = ({ item }) => {
         </Text>
       </CenterComponent>
       <WidthExtender
-        itemWidth={item.width}
         id={item.itemId}
         height={ITEM_HIGHT[item.type]}
+        handleDragEnd={handleDragEnd}
+        handleDragMove={handleDragMove}
       />
     </Flex>
   );
