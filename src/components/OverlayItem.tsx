@@ -35,7 +35,12 @@ export const OverLayItem: React.FC = () => {
   );
 
   if (id && itemIds.includes(id)) {
-    return <Transparent height={height} width={width} />;
+    return (
+      <Transparent
+        height={height ? `${height}px` : undefined}
+        width={width ? `${width}px` : undefined}
+      />
+    );
   }
   return null;
 };
