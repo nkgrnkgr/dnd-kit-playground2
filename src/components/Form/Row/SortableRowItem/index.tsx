@@ -50,10 +50,10 @@ const Component: React.FC<ComponentProps> = ({ item }) => {
   return (
     <Flex alignItems="center">
       {placeholderShown && <PlaceHolder />}
-      <CenterComponent
+      <Center
         backgroundColor="blue.400"
         width={`${current}px`}
-        height={ITEM_HIGHT[item.type]}
+        height={`${ITEM_HIGHT[item.type]}px`}
       >
         <Text
           sx={{
@@ -63,10 +63,10 @@ const Component: React.FC<ComponentProps> = ({ item }) => {
         >
           {item.type}
         </Text>
-      </CenterComponent>
+      </Center>
       <WidthExtender
         id={item.itemId}
-        height={ITEM_HIGHT[item.type]}
+        height={`${ITEM_HIGHT[item.type]}px`}
         handleDragEnd={handleDragEnd}
         handleDragMove={handleDragMove}
       />

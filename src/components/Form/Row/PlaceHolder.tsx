@@ -7,17 +7,18 @@ type Props = {
   width?: string | undefined;
 };
 
-const Component: React.FC<Props> = ({ height = "56px", width = "200px" }) => {
-  return (
-    <Center p="4" w={width} h={height} bg="teal.50">
-      <Text>PlaceHolder</Text>
-    </Center>
-  );
-};
-
 export const PlaceHolder: React.FC<{}> = () => {
   const { height, width } = useSelector(
     (state: RootState) => state.page.activeElementProperty
   );
-  return <Component height={height} width={width} />;
+  return (
+    <Center
+      p="4"
+      w={width ? `${width}px` : undefined}
+      h={height ? `${height}px` : undefined}
+      bg="teal.50"
+    >
+      <Text>PlaceHolder</Text>
+    </Center>
+  );
 };

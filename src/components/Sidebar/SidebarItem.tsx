@@ -1,4 +1,4 @@
-import { Icon, Text } from "@chakra-ui/react";
+import { Center, Icon, Text } from "@chakra-ui/react";
 import { RiDragMove2Fill } from "react-icons/ri";
 import {
   DEFAULT_WIDTH,
@@ -20,10 +20,10 @@ export const SidebarItem: React.FC<Props> = ({ item }) => {
         itemType: item.type,
       }}
     >
-      <CenterComponent
+      <Center
         backgroundColor="tomato"
         width={`${DEFAULT_WIDTH}px`}
-        height={ITEM_HIGHT[item.type]}
+        height={`${ITEM_HIGHT[item.type]}px`}
       >
         <Icon
           sx={{
@@ -33,7 +33,7 @@ export const SidebarItem: React.FC<Props> = ({ item }) => {
           as={RiDragMove2Fill}
         />
         <Text color="white">{item.itemId}</Text>
-      </CenterComponent>
+      </Center>
     </Draggable>
   );
 };
