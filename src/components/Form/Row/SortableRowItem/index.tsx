@@ -22,7 +22,8 @@ const usePlaceholderShown = (itemId: string) => {
 
   // 同じ行でソート中はPlaceholderを出さない
   // @ts-ignore
-  return isOver && over?.data.current.rowId !== active?.data.current.rowId;
+  // return isOver && over?.data.current.rowId !== active?.data.current.rowId;
+  return isOver;
 };
 
 const Component: React.FC<ComponentProps> = ({ item }) => {
