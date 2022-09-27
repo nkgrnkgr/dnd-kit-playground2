@@ -3,7 +3,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
 import { RecoilRoot } from "recoil";
-import { App } from "./App";
+import { App } from "./App2";
 import { createRootStore } from "./modules/store";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
