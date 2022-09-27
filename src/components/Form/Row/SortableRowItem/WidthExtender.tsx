@@ -2,7 +2,6 @@ import { Center, Icon } from "@chakra-ui/react";
 import { DndContext, DragEndEvent, DragMoveEvent } from "@dnd-kit/core";
 import { restrictToHorizontalAxis } from "@dnd-kit/modifiers";
 import { FaGripLinesVertical } from "react-icons/fa";
-import { CenterComponent } from "../../../helper/Center";
 import { Draggable } from "../../../helper/dnd/Draggable";
 
 type Props = {

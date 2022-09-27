@@ -39,12 +39,12 @@ const Component: React.FC<ComponentProps> = ({ item }) => {
     dispatch(
       actions.changeWidth({
         itemId: item.itemId,
-        width: current.toString(),
+        width: (current + e.delta.x).toString(),
       })
     );
   };
   const handleDragMove = (e: DragMoveEvent) => {
-    console.log(e.delta.x);
+    setCurrent(Number(item.width) + e.delta.x);
   };
 
   return (

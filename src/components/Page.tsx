@@ -7,9 +7,7 @@ import {
 } from "@dnd-kit/core";
 import { useSelector } from "react-redux";
 import { v4 as uuid } from "uuid";
-import { Form } from "./Form";
-import { OverLayItem } from "./OverlayItem";
-import { SideBar } from "./Sidebar";
+import { assertValue } from "../lib/asserts";
 import {
   actions as itemsActions,
   DEFAULT_WIDTH,
@@ -19,8 +17,11 @@ import {
 } from "../modules/itemsSlice";
 import { actions } from "../modules/pageSlice";
 import { actions as rowsActions, rowsSelector } from "../modules/rowsSlice";
-import { useRootDispatch } from "../modules/store";
+import { RootState, useRootDispatch } from "../modules/store";
+import { Form } from "./Form";
+import { OverLayItem } from "./OverlayItem";
 import { Result } from "./Result";
+import { SideBar } from "./Sidebar";
 
 export const Page: React.FC = () => {
   const dispatch = useRootDispatch();
@@ -30,10 +31,11 @@ export const Page: React.FC = () => {
   const handleDragStart = (event: DragStartEvent) => {
     // @ts-ignore-next-line
     const type = event.active.data.current.itemType as ItemType;
+
     dispatch(
       actions.setActiveElementProperty({
         id: event.active.id.toString(),
-        width: "200px",
+        width: DEFAULT_WIDTH.toString(),
         height: ITEM_HIGHT[type],
       })
     );
