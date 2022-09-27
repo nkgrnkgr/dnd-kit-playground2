@@ -19,9 +19,9 @@ export type Item = {
   width: string;
 };
 export const ITEM_HIGHT: Record<ItemType, string> = {
-  [ITEM_TYPE.SMALL]: "56px",
-  [ITEM_TYPE.MIDDLE]: "112px",
-  [ITEM_TYPE.LARGE]: "168px",
+  [ITEM_TYPE.SMALL]: "56",
+  [ITEM_TYPE.MIDDLE]: "112",
+  [ITEM_TYPE.LARGE]: "168",
 };
 
 export const DEFAULT_WIDTH = 200;
