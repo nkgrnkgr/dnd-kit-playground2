@@ -16,7 +16,15 @@ export type ItemType = TypeOfValues<typeof ITEM_TYPE>;
 export type Item = {
   itemId: string;
   type: ItemType;
+  width: string;
 };
+export const ITEM_HIGHT: Record<ItemType, string> = {
+  [ITEM_TYPE.SMALL]: "56px",
+  [ITEM_TYPE.MIDDLE]: "112px",
+  [ITEM_TYPE.LARGE]: "168px",
+};
+
+export const DEFAULT_WIDTH = 200;
 
 const itemsAdapter = createEntityAdapter<Item>({
   selectId: (item) => item.itemId,
@@ -28,6 +36,18 @@ export const { reducer, actions } = createSlice({
   reducers: {
     addItem(state, action: PayloadAction<Item>) {
       itemsAdapter.addOne(state, action.payload);
+    },
+    changeWidth(
+      state,
+      action: PayloadAction<{ itemId: string; width: string }>
+    ) {
+      const { itemId, width } = action.payload;
+      itemsAdapter.updateOne(state, {
+        id: itemId,
+        changes: {
+          width,
+        },
+      });
     },
   },
 });

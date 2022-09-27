@@ -21,8 +21,10 @@ export const Empty: React.FC<Props> = ({ itemId, rowId }) => {
   return (
     <Droppable
       style={{ flex: 1, minHeight: "56px", backgroundColor: "#fff" }}
-      droppableId={itemId}
-      rowId={rowId}
+      id={itemId}
+      data={{
+        rowId,
+      }}
     >
       <Component itemId={itemId} />
     </Droppable>

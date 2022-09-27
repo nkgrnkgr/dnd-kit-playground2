@@ -7,19 +7,21 @@ import {
 } from "@dnd-kit/core";
 import { useSelector } from "react-redux";
 import { v4 as uuid } from "uuid";
-import { Form } from "./Form";
-import { OverLayItem } from "./OverlayItem";
-import { SideBar } from "./Sidebar";
-import { ITEM_HIGHT } from "./helper/Item";
+import { assertValue } from "../lib/asserts";
 import {
   actions as itemsActions,
+  DEFAULT_WIDTH,
   itemsSelector,
   ItemType,
+  ITEM_HIGHT,
 } from "../modules/itemsSlice";
 import { actions } from "../modules/pageSlice";
 import { actions as rowsActions, rowsSelector } from "../modules/rowsSlice";
-import { useRootDispatch } from "../modules/store";
+import { RootState, useRootDispatch } from "../modules/store";
+import { Form } from "./Form";
+import { OverLayItem } from "./OverlayItem";
 import { Result } from "./Result";
+import { SideBar } from "./Sidebar";
 
 export const Page: React.FC = () => {
   const dispatch = useRootDispatch();
@@ -28,11 +30,12 @@ export const Page: React.FC = () => {
 
   const handleDragStart = (event: DragStartEvent) => {
     // @ts-ignore-next-line
-    const type = event.active.data.current.type as ItemType;
+    const type = event.active.data.current.itemType as ItemType;
+
     dispatch(
       actions.setActiveElementProperty({
         id: event.active.id.toString(),
-        width: "200px",
+        width: DEFAULT_WIDTH.toString(),
         height: ITEM_HIGHT[type],
       })
     );
@@ -54,7 +57,7 @@ export const Page: React.FC = () => {
 
       const activeId = event.active.id;
       // @ts-ignore
-      const activeItemType = event.active.data.current.type as ItemType;
+      const activeItemType = event.active.data.current.itemType as ItemType;
       // @ts-ignore
       const overRowId = event.over.data.current.rowId as string;
 
@@ -101,6 +104,7 @@ export const Page: React.FC = () => {
         itemsActions.addItem({
           itemId: newId,
           type: activeItemType,
+          width: DEFAULT_WIDTH.toString(),
         })
       );
       dispatch(
