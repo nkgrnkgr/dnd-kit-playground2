@@ -1,10 +1,13 @@
 import { Box, Flex, IconButton } from "@chakra-ui/react";
-import { SortableContext, useSortable } from "@dnd-kit/sortable";
+import {
+  horizontalListSortingStrategy,
+  SortableContext,
+  useSortable,
+} from "@dnd-kit/sortable";
 import { FaGripLinesVertical } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { rowsSelector } from "../../../modules/rowsSlice";
 import { RootState } from "../../../modules/store";
-import { Droppable } from "../../helper/dnd/Droppable";
 import { Empty } from "./Empty";
 import { CSS } from "@dnd-kit/utilities";
 
@@ -36,38 +39,34 @@ export const DraggableRow: React.FC<Props> = ({ rowId, children }) => {
       ref={setNodeRef}
       style={style}
     >
-      <SortableContext items={itemIds}>
-        <Droppable
-          id={rowId}
-          data={{
-            rowId,
-          }}
+      <Flex
+        sx={{
+          display: "flex",
+          alignItems: "center",
+        }}
+      >
+        <IconButton
+          aria-label="dragHandler"
+          icon={<FaGripLinesVertical />}
+          {...attributes}
+          {...listeners}
+        />
+
+        <SortableContext
+          strategy={horizontalListSortingStrategy}
+          items={itemIds}
         >
-          <Flex
+          <Box
             sx={{
               display: "flex",
-              alignItems: "center",
+              gap: 1,
             }}
           >
-            <IconButton
-              aria-label="dragHandler"
-              icon={<FaGripLinesVertical />}
-              {...attributes}
-              {...listeners}
-            />
-
-            <Box
-              sx={{
-                display: "flex",
-                gap: 1,
-              }}
-            >
-              {children}
-            </Box>
-            <Empty itemId={`${rowId}-empty`} rowId={rowId} />
-          </Flex>
-        </Droppable>
-      </SortableContext>
+            {children}
+          </Box>
+          <Empty itemId={`${rowId}-empty`} rowId={rowId} />
+        </SortableContext>
+      </Flex>
     </Box>
   );
 };

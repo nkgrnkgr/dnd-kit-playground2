@@ -17,6 +17,7 @@ export const Form = () => {
         p: "12px",
         h: "100vh",
         minWidth: "800px",
+        width: "100%",
       }}
     >
       <VStack spacing="12px">

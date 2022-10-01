@@ -7,7 +7,6 @@ import {
 } from "@dnd-kit/core";
 import { useSelector } from "react-redux";
 import { v4 as uuid } from "uuid";
-import { assertValue } from "../lib/asserts";
 import {
   actions as itemsActions,
   DEFAULT_WIDTH,
@@ -17,7 +16,7 @@ import {
 } from "../modules/itemsSlice";
 import { actions } from "../modules/pageSlice";
 import { actions as rowsActions, rowsSelector } from "../modules/rowsSlice";
-import { RootState, useRootDispatch } from "../modules/store";
+import { useRootDispatch } from "../modules/store";
 import { Form } from "./Form";
 import { OverLayItem } from "./OverlayItem";
 import { Result } from "./Result";
@@ -25,20 +24,33 @@ import { SideBar } from "./Sidebar";
 
 export const Page: React.FC = () => {
   const dispatch = useRootDispatch();
+  const allItems = useSelector(itemsSelector.selectAll);
   const itemIds = useSelector(itemsSelector.selectIds);
   const rowIds = useSelector(rowsSelector.selectIds);
 
   const handleDragStart = (event: DragStartEvent) => {
-    // @ts-ignore-next-line
-    const type = event.active.data.current.itemType as ItemType;
-
-    dispatch(
-      actions.setActiveElementProperty({
-        id: event.active.id.toString(),
-        width: DEFAULT_WIDTH.toString(),
-        height: ITEM_HIGHT[type],
-      })
+    const activeItem = allItems.find(
+      (item) => item.itemId === event.active.id.toString()
     );
+    if (activeItem) {
+      dispatch(
+        actions.setActiveElementProperty({
+          id: event.active.id.toString(),
+          width: activeItem?.width,
+          height: ITEM_HIGHT[activeItem?.type],
+        })
+      );
+    } else {
+      // @ts-ignore-next-line
+      const type = event.active.data.current.itemType as ItemType;
+      dispatch(
+        actions.setActiveElementProperty({
+          id: event.active.id.toString(),
+          width: DEFAULT_WIDTH.toString(),
+          height: ITEM_HIGHT[type],
+        })
+      );
+    }
   };
 
   const handleDragEnd = (event: DragEndEvent) => {
