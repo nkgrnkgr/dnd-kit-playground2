@@ -8,7 +8,6 @@ import { FaGripLinesVertical } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { rowsSelector } from "../../../modules/rowsSlice";
 import { RootState } from "../../../modules/store";
-import { Droppable } from "../../helper/dnd/Droppable";
 import { Empty } from "./Empty";
 import { CSS } from "@dnd-kit/utilities";
 
