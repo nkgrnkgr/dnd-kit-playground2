@@ -6,7 +6,6 @@ import { Draggable } from "../../../helper/dnd/Draggable";
 
 type Props = {
   id: string;
-  left: string;
   height: string;
   handleDragMove: (e: DragMoveEvent) => void;
   handleDragEnd: (e: DragEndEvent) => void;
@@ -14,7 +13,6 @@ type Props = {
 
 export const WidthExtender: React.FC<Props> = ({
   id,
-  left,
   height,
   handleDragMove,
   handleDragEnd,
@@ -27,16 +25,7 @@ export const WidthExtender: React.FC<Props> = ({
         modifiers={[restrictToHorizontalAxis]}
       >
         <Draggable id={`edge-${id}`}>
-          <Center
-            sx={{
-              position: "absolute",
-              top: "0",
-              left,
-            }}
-            backgroundColor="blue.400"
-            height={height}
-            width="10"
-          >
+          <Center backgroundColor="blue.400" height={height} width="10">
             <Icon
               color="#fff"
               aria-label="dragHandler"

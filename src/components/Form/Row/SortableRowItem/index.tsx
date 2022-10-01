@@ -40,7 +40,6 @@ const Component: React.FC<ComponentProps> = ({ item }) => {
   };
   const handleDragEnd = (e: DragEndEvent) => {
     const newWidth = Number(item.width) + e.delta.x;
-    setWidth(newWidth);
     dispatch(
       actions.changeWidth({
         itemId: item.itemId,
@@ -72,10 +71,16 @@ const Component: React.FC<ComponentProps> = ({ item }) => {
           </Text>
         </Center>
       </Flex>
-      <Flex alignItems="center">
+      <Flex
+        sx={{
+          position: "absolute",
+          top: "0",
+          left: `${Number(item.width) - 40}`,
+        }}
+        alignItems="center"
+      >
         <WidthExtender
           id={item.itemId}
-          left={item.width}
           height={`${ITEM_HIGHT[item.type]}px`}
           handleDragMove={handleDragMove}
           handleDragEnd={handleDragEnd}
